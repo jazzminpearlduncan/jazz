@@ -28,26 +28,29 @@ all_years_data <- setNames(
   lapply(all_years_files, read_csv),
   basename(all_years_files))
 
-head(all_years_data, 4)
+head(all_years_data, 1)
+
 ```
 
 ## Cleaning the Data
 
-### 2008-2009
+### Create function to read, clean, and update Dates in each dataset
+### Place all data into one dataset
 
 ```{r}
 
 # Fall
 F_2008 <- all_years_data[["2008Fall.csv"]] |>
-  mutate(Date = 
+  mutate(Date2 = 
            Date |>
            str_remove("\\.") |>
            str_replace("$", " 2008") |>
            mdy())
 
+
 # Spring
-S_2008 <- all_years_data[["2009Spring.csv"]] |>
-  mutate(Date = 
+S_2009 <- all_years_data[["2009Spring.csv"]] |>
+  mutate(Date2 = 
            Date |>
            str_remove("\\.") |>
            str_replace("$", " 2009") |>
@@ -55,15 +58,127 @@ S_2008 <- all_years_data[["2009Spring.csv"]] |>
 
 
 F_2008
-S_2008
+S_2009
 
 ```
 
-### 2010-2011
+
+# add all data to one data frame
 
 ```{r}
 
+# creating function to make it so that all datasets can be added together cleanly
+standardize_data <- function(filename) {
+  # take the year from the name of each file
+  year <- str_sub(filename, 1, 4) 
+  print(filename)
+  # select one specific file each round 
+  cleaning_data <- all_years_data[[filename]]
+    
+    # cleaning each column up
+    cleaning_data <- cleaning_data |>
+      mutate(
+        
+        # standardize count column
+        Count_original = as.character(Count),
+        Count = case_when(
+          
+          # if its #s keep it that way as number value
+          str_detect(Count, "^\\d+$") ~ as.numeric(Count),
+          
+          # finds average of ranges, such as 75-82
+          str_detect(Count, "^\\d+-\\d+$") ~
+          (as.numeric(str_extract(Count, "^\\d+")) +
+             as.numeric(str_extract(Count, "\\d+$"))) / 2,
+          
+          # for approximations (~) -- (removes symbol)
+          str_detect(Count, "^~\\d+$") ~ 
+          as.numeric(str_remove(Count, "~")),
+          
+        # numbers with +, such as 176+ or 600+ FULL
+        str_detect(Count, "^\\d+\\s*\\+") ~
+          as.numeric(str_extract(Count, "^\\d+")),
+        
+        # estimated numbers, such as 131 (est)
+        str_detect(Count, "^\\d+\\s*\\(est\\)") ~
+          as.numeric(str_extract(Count, "^\\d+")),
+        
+        # approximately, such as c.279
+        str_detect(Count, "^c\\.\\s*\\d+$") ~
+          as.numeric(str_extract(Count, "\\d+")),
+        
+        # number - full, such as 244 - full
+        str_detect(Count, "^\\d+\\s*-\\s*full$") ~
+          as.numeric(str_extract(Count, "^\\d+")),
+  
+          # everything else becomes NA (blanks, ?, cancelled, etc.)
+          TRUE ~ NA_real_),
+        
+        # standardize date column
+        Date2 = 
+          case_when(
+            # if its already in the right format, run mdy
+            !is.na(mdy(Date)) ~ 
+              mdy(Date, quiet = TRUE),
+            
+            # if its not,then remove the period, replace the slashes with spaces, and put the year a the end
+            is.na(mdy(Date)) ~  
+              str_remove(Date, "^[A-Za-z]+\\.?\\s+") |>
+              str_remove_all( "\\.") |>
+              str_replace_all("/", paste0(" ")) |>
+              str_replace("$", paste0(" ", year)) |>
+              mdy(quiet = TRUE))
+          )
+    
+    # check for time column
+    if ("Time" %in% names(cleaning_data)) {
+      
+      if (inherits(cleaning_data$Time, "difftime")) {
+        cleaning_data <- cleaning_data |>
+          mutate(Time2 = Time)
+      } else {
+      cleaning_data <- cleaning_data |>
+        
+        # standardize time values
+        mutate(Time2 = parse_date_time(
+          Time,
+          # acceptable formats: 12hr:MinSecpm, 12hrpm, 12hr pm, 12hr:Minpm
+          orders = c("I:M p", "I p", "Ip", "I:Mp"),
+          quiet = TRUE)
+    
+        ) |>
+        mutate(Time2 = hms::as_hms(Time2))
+      
+      }
+          
+            
+    
+  # return clean/updated dataset of each semester
+    # make original Time column the same type across all files
+  cleaning_data <- cleaning_data |>
+    mutate(Time = as.character(Time)) 
 
+    }
+}
+
+standardize_data("2010Fall.csv")
+
+
+# creates list of the filenames without full filepath
+files <- basename(all_years_files)
+
+
+# 
+temp <- map(files, standardize_data) |>
+  bind_rows() 
+
+glimpse(temp)
+summary(temp)
+
+temp |>
+  arrange(Location)
+
+# locations: Lyman Hall, Little Bridges, Garrison | Garrison Theater, Bryant Hall, Bridges Hall of Music front patio | Bridges Hall of Music | Bridges Hall of M | Bridges Auditorium, Benton Museum 
 ```
 
 ### 2011-2012

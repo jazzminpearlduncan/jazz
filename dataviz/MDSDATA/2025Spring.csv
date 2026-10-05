@@ -1,4 +1,4 @@
-﻿Day/Date,Time,Event,Total Count,Students,Notes,Location
+Date,Time,Event,Count,Students,Notes,Location
 2/1/25,,Ussachevsky,69,,,Lyman Hall
 2/12/25,,Student Recital,26,,,Lyman Hall
 2/22/25,,Biber Sonatas,231,38,,Bridges Hall of Music
@@ -29,8 +29,3 @@
 5/6/25,,Student Recital,65,38,,Lyman Hall
 5/7/25,,Student Recital,51,31,,Lyman Hall
 5/17/25,,Music & Art / Glee Club,111,29,,Bridges Hall of Music
-,,,,,,
-Glee Tour:,Oak Park,44,,,,
-,Chicago,62,,,,
-,"Cambridge,MA",66,,,,
-,NYC,100,,,,
