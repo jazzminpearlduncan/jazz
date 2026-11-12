@@ -17,7 +17,7 @@
         "  output: true\n",
         "---"
       ],
-      "id": "0f996120"
+      "id": "b540beaf"
     },
     {
       "cell_type": "code",
@@ -56,7 +56,7 @@
         "\n",
         "HTML(transit_chart.svg)"
       ],
-      "id": "c9de484d",
+      "id": "b263baa1",
       "execution_count": null,
       "outputs": []
     },
@@ -120,7 +120,7 @@
         "}\n",
         "</style>"
       ],
-      "id": "9a0c4181"
+      "id": "a2170267"
     }
   ],
   "metadata": {

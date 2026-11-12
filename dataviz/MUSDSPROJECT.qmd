@@ -12,7 +12,7 @@ format: html
 library(tidyverse)
 library(lubridate)
 library(readr)
-
+library(writexl)
 
 # Read csv files containing the attendance data
 all_years_files <- 
@@ -28,50 +28,22 @@ all_years_data <- setNames(
   lapply(all_years_files, read_csv),
   basename(all_years_files))
 
-head(all_years_data, 1)
-
 ```
 
 ## Cleaning the Data
 
 ### Create function to read, clean, and update Dates in each dataset
 ### Place all data into one dataset
-
-```{r}
-
-# Fall
-F_2008 <- all_years_data[["2008Fall.csv"]] |>
-  mutate(Date2 = 
-           Date |>
-           str_remove("\\.") |>
-           str_replace("$", " 2008") |>
-           mdy())
-
-
-# Spring
-S_2009 <- all_years_data[["2009Spring.csv"]] |>
-  mutate(Date2 = 
-           Date |>
-           str_remove("\\.") |>
-           str_replace("$", " 2009") |>
-           mdy())
-
-
-F_2008
-S_2009
-
-```
-
-
 # add all data to one data frame
 
 ```{r}
 
 # creating function to make it so that all datasets can be added together cleanly
 standardize_data <- function(filename) {
-  # take the year from the name of each file
+  # take the year from the name of each file, store for later
   year <- str_sub(filename, 1, 4) 
   print(filename)
+  
   # select one specific file each round 
   cleaning_data <- all_years_data[[filename]]
     
@@ -79,63 +51,168 @@ standardize_data <- function(filename) {
     cleaning_data <- cleaning_data |>
       mutate(
         
-        # standardize count column
-        Count_original = as.character(Count),
-        Count = case_when(
-          
-          # if its #s keep it that way as number value
-          str_detect(Count, "^\\d+$") ~ as.numeric(Count),
-          
-          # finds average of ranges, such as 75-82
-          str_detect(Count, "^\\d+-\\d+$") ~
-          (as.numeric(str_extract(Count, "^\\d+")) +
-             as.numeric(str_extract(Count, "\\d+$"))) / 2,
-          
-          # for approximations (~) -- (removes symbol)
-          str_detect(Count, "^~\\d+$") ~ 
-          as.numeric(str_remove(Count, "~")),
-          
-        # numbers with +, such as 176+ or 600+ FULL
-        str_detect(Count, "^\\d+\\s*\\+") ~
-          as.numeric(str_extract(Count, "^\\d+")),
-        
-        # estimated numbers, such as 131 (est)
-        str_detect(Count, "^\\d+\\s*\\(est\\)") ~
-          as.numeric(str_extract(Count, "^\\d+")),
-        
-        # approximately, such as c.279
-        str_detect(Count, "^c\\.\\s*\\d+$") ~
-          as.numeric(str_extract(Count, "\\d+")),
-        
-        # number - full, such as 244 - full
-        str_detect(Count, "^\\d+\\s*-\\s*full$") ~
-          as.numeric(str_extract(Count, "^\\d+")),
-  
-          # everything else becomes NA (blanks, ?, cancelled, etc.)
-          TRUE ~ NA_real_),
-        
-        # standardize date column
-        Date2 = 
+      # standardize date column
+        Date = 
           case_when(
             # if its already in the right format, run mdy
             !is.na(mdy(Date)) ~ 
-              mdy(Date, quiet = TRUE),
+              mdy(Date, quiet = FALSE),
             
+            str_detect(Date, "^\\d{1,2}-[A-Za-z]+$") ~
+              paste0(Date, "-", year) |>
+              dmy(quiet = FALSE),
             # if its not,then remove the period, replace the slashes with spaces, and put the year a the end
             is.na(mdy(Date)) ~  
-              str_remove(Date, "^[A-Za-z]+\\.?\\s+") |>
+              str_remove(Date, "^(Sun|Mon|Tue|Wed|Thu|Fri|Sat)+\\.?\\s+") |>
+              str_replace("Aprl|Ap\\.", "April") |>
               str_remove_all( "\\.") |>
               str_replace_all("/", paste0(" ")) |>
               str_replace("$", paste0(" ", year)) |>
-              mdy(quiet = TRUE))
-          )
+              mdy(quiet = FALSE)
+              ),
+          
+      # standardize count column
+        Count = case_when(
+          
+        # creating conditions for count values to be converted
+          
+          # if its #s keep it that way as number value
+          str_detect(Count, "^\\d+$") ~ as.numeric(Count),
+          # finds average of ranges, such as 75-82
+          str_detect(Count, "^\\d+-\\d+$|^\\d+/\\d+$") ~
+          (as.numeric(str_extract(Count, "^\\d+")) +
+             as.numeric(str_extract(Count, "\\d+$"))) / 2,
+          # for approximations (~) or question marks -- (removes symbol)
+          str_detect(Count, "^~\\d+$|^\\d+\\?$") ~ 
+            as.numeric(str_remove(Count, "~|\\?")),
+          str_detect(Count, "^\\d+~$") ~
+            as.numeric(str_remove(Count, "~")),
+          # numbers with +, such as 176+ or 600+ FULL
+          str_detect(Count, "^\\d+\\s*\\+") ~
+            as.numeric(str_extract(Count, "^\\d+")),
+          # estimated numbers, such as 131 (est)
+          str_detect(Count, "^\\d+\\s*\\(est\\)") ~ 
+            as.numeric(str_extract(Count, "^\\d+")),
+          # removes abbreviations, such as c.279 or c279
+          str_detect(Count, "^c\\.\\s*\\d+$|^c\\d+$|(c\\.\\d+)$") ~
+            as.numeric(str_extract(Count, "\\d+")),
+          # removes the word full, such as 244 - full or -plus
+          str_detect(Count, "^\\d+\\s*-\\s*full$|^\\d+-plus$|^\\d+\\s*-\\s*looked") ~
+            as.numeric(str_extract(Count, "^\\d+")),
+  
+        # if none of the conditions above are met, turn it to NA
+        
+          # everything else becomes NA (blanks, ?, cancelled, etc.)
+          TRUE ~ NA_real_),
+      
+      
+      # standardize location column
+      Location = case_when(
+        str_detect(Location,"Bridges Hall of Music|Bridges Hall of M|Bridges Hall of Music front patio|Little Bridges") ~
+          "Little Bridges",
+        str_detect(Location,"Bridges Auditorium") ~
+          "Big Bridges",
+        str_detect(Location,"Garrison") ~
+          "Garrison Theater",
+        str_detect(Location,"Benton Museum-Pomona College") ~
+          "Benton Museum",
+        str_detect(Location,"Smith CC/Rose Thea\\.|Smith Campus Center") ~
+          "Smith Campus Center",
+        str_detect(Location,"Bryant") ~
+          "Bryant Hall",
+        str_detect(Location,"Sontag") ~
+          "Sontag Greek Theater",
+        !str_detect(Location, "Bridges|Garrison|Benton|Smith|Bryant|Lyman|Sontag") ~
+          "Non-5C Location",
+        TRUE ~ Location
+      ),
+      
+      
+      # create event column
+      Event_Name = Event ,
+      Event = str_to_lower(Event),
+      Event_Type = case_when(
+        str_detect(Event, "senior|sr\\.|sr|student|stud\\.|jr\\.|jr|soph|soph\\.|class recital|stud\\.rec\\.") ~
+          "Student Project/Recital",
+        str_detect(Event, "pco & pcc|orchesta & choir|choir & orchestra|pomona college orchestra|orchestra|pc orch|pco|pomona college choir|choir|pc choir|pcc|pomona college band|band|pc band|west african|afro-cuban|gamelan") ~
+          "Student Ensemble",
+        str_detect(Event, "ensemble|ens|ens\\.|celliola|cornucopia|mojave|artifex|prism|trio|quartet|duo") ~
+          "Other Ensemble Performance",
+        str_detect(Event, "peterson|^lee|rockwell|pelev|wright|fac\\.|fnc|friday noon|solo") ~
+          "Faculty Recital",
+        str_detect(Event, "guest|chirgilchin|millennium consort") ~
+          "Guest Artist",
+       str_detect(Event, "lecture|demo|demonstration") ~
+          "Lecture/Demonstration",
+        str_detect(Event, "through the gates|convocation|memorial|baccalaureate") ~
+          "Non-Music Ceremony",        
+       str_detect(Event, "glee") ~
+         "Glee Club",
+        TRUE ~ "Other"        
+        #str_detect(Event, "dance") ~
+         # "Dance Performance",
+        
+        # add student ensembles (theres 8 of them)
+        #str_detect(Event, "pco & pcc|orchesta & choir|choir & orchestra") ~
+         # "Pomona College Orchestra & Choir",
+       # str_detect(Event, "pomona college orchestra|orchestra|pc orch|pco") ~
+        #  "Pomona College Orchestra",
+       # str_detect(Event, "pomona college band|band|pc band") ~
+          #"Pomona College Band",
+       # str_detect(Event, "pomona college choir|choir|pc choir|pcc") ~
+          #"Pomona College Choir",
+       # add quartets/trios/chorale/non-student ensembles
+
+      ),
+      
+      # create day of week column 
+      Day_of_Week = weekdays(Date),
+      Day_of_Week = factor(Day_of_Week,
+                           levels = c("Monday", "Tuesday", "Wednesday", "Thursday",
+               "Friday", "Saturday", "Sunday")),
+      Genre = case_when(
+        str_detect(Event, "mozart|beethoven|classical|bach|baroque|chamber") ~ 
+          "Classical",
+        str_detect(Event, "afro|african|brasil|korea|korean|middle east|china|chinese|punjabi|mariachi") ~
+          "International",
+        str_detect(Event, "jazz") ~
+          "Jazz",
+        str_detect(Event, "electronic|ussachevsky") ~
+          "Electronic",
+        TRUE ~ "Other" 
+      ),
+      
+      Instrument = case_when(
+        str_detect(Event, "piano|organ|lee|keys|pianist|peterson") ~
+          "Keys",
+        str_detect(Event, "drum|drums|percussion|perc\\.|perc") ~
+          "Percussion",
+        str_detect(Event, "guitar|bass|strings|string|celliola|cello|viola|cord a vide|corde a vide|harp|wright") ~
+          "Strings",
+        str_detect(Event, "horn|horns|brass") ~
+          "Brass",
+        str_detect(Event, "pco & pcc|orchesta & choir|choir & orchestra|pco|pomona college orchestra|orchestra|pc orch|pomona college band|band|pc band|gamelan|jazz|balinese|afro cuban|afro-cuban|mariachi|merengue") ~
+          "Multi",
+        str_detect(Event, "vocal|singer|singing|sing|voice|acapella|a capella|glee|choir|opera|lytle|givens") ~
+          "Voice",
+        str_detect(Event, "electronic|ussachevsky") ~
+          "Electronic",
+        
+        TRUE ~ "Other"
+      ),
+      
+      Semester_Year = semester(Date, with_year = TRUE)
+
+      )
+        
+          
     
     # check for time column
     if ("Time" %in% names(cleaning_data)) {
       
       if (inherits(cleaning_data$Time, "difftime")) {
         cleaning_data <- cleaning_data |>
-          mutate(Time2 = Time)
+          mutate(Time2 = hms::as_hms(Time))
       } else {
       cleaning_data <- cleaning_data |>
         
@@ -144,46 +221,65 @@ standardize_data <- function(filename) {
           Time,
           # acceptable formats: 12hr:MinSecpm, 12hrpm, 12hr pm, 12hr:Minpm
           orders = c("I:M p", "I p", "Ip", "I:Mp"),
-          quiet = TRUE)
+          quiet = FALSE)
     
         ) |>
         mutate(Time2 = hms::as_hms(Time2))
       
       }
           
-            
     
   # return clean/updated dataset of each semester
     # make original Time column the same type across all files
   cleaning_data <- cleaning_data |>
-    mutate(Time = as.character(Time)) 
+    mutate(Time = as.character(Time))
 
     }
+    
+    
+    cleaning_data
 }
 
-standardize_data("2010Fall.csv")
 
 
 # creates list of the filenames without full filepath
 files <- basename(all_years_files)
 
-
-# 
+ 
 temp <- map(files, standardize_data) |>
   bind_rows() 
 
-glimpse(temp)
-summary(temp)
+temp <- temp |>
+  select(Date, Semester_Year, Time2, Location, Event_Name, Count, Event_Type, Genre, Instrument, Day_of_Week)
 
 temp |>
-  arrange(Location)
+  filter(Genre == "Other", Instrument == "Other", Event_Type != "Student Project/Recital") |>
+  arrange(desc(Date))
 
-# locations: Lyman Hall, Little Bridges, Garrison | Garrison Theater, Bryant Hall, Bridges Hall of Music front patio | Bridges Hall of Music | Bridges Hall of M | Bridges Auditorium, Benton Museum 
+
+
 ```
 
-### 2011-2012
 
 ```{r}
+
+# Average Attendees By Event Type Per Year
+temp |>
+  filter(!is.na(Count), !is.na(Date)) |>
+  mutate(Year = year(Date)) |>
+  group_by(Semester_Year, Event_Type) |>
+  summarise(avg_count = mean(Count), .groups = "drop") |>
+  ggplot(aes(x = Semester_Year, y = avg_count, color = Event_Type)) +
+  geom_line(size = 1.5) +
+  labs(
+    x = "Semester",
+    y = "Average Count", 
+    title = "Average Attendees by Event Type per Year"
+  )+
+  scale_color_brewer(palette = "Dark2") +
+  theme_minimal()
+
+ggsave("type.png", width = 12, height = 8, dpi = 300)
 
 
 ```
@@ -192,19 +288,181 @@ temp |>
 
 ```{r}
 
+# Average Attendees By Genre Per Year
+
+temp |>
+  arrange(desc(Date))
+
+temp |>
+  filter(!is.na(Count), !is.na(Date)) |>
+  group_by(Semester_Year, Genre) |>
+  summarise(avg_count = mean(Count), n_events = n(), .groups = "drop") |>
+  ggplot(aes(x = Semester_Year, y = avg_count, color = Genre)) +
+  geom_line() +
+  geom_point(aes(size = n_events)) +
+  labs(
+    x = "Year",
+    y = "Average Count", 
+    title = "Average Count by Genre per Year"
+  ) +
+  scale_color_brewer(palette = "Dark2")
+
+ggsave("genre.png", width = 12, height = 8, dpi = 300)
+
 
 ```
 
-### 2013-2014
-
 ```{r}
+
+# Average Attendees Per Year
+
+temp |>
+  filter(!is.na(Count), !is.na(Date), Location != "Non-5C Location") |>
+  group_by(Semester_Year) |>
+  summarise(avg_count = mean(Count), n_events = n(), .groups = "drop") |>
+  ggplot(aes(x = Semester_Year, y = avg_count)) +
+  geom_line() +
+  geom_smooth(se = FALSE) +
+  geom_point(aes(size = n_events)) +
+  labs(
+    x = "Year",
+    y = "Average Count",
+    title = "Average Count per Year"
+  )
+
+temp |>
+  filter(!is.na(Date), !is.na(Count), Location != "Non-5C Location", year(Date) %in% c(2017,2018,2019,2020,2021,2022,2023)) |>
+  group_by(Semester_Year) |>
+  summarise(avg_count = mean(Count), n_events = n(), .groups = "drop") |>
+  ggplot(aes(x = Semester_Year, y = avg_count)) +
+  geom_line() +
+  geom_point(aes(size = n_events)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    x = "Date",
+    y = "Average Count",
+    title = "Average Count leading up to and following COVID Lockdown (5C Locations only)"
+  ) 
+ 
+ggsave("covid.png", width = 12, height = 8, dpi = 300)
 
 
 ```
 
-### 2011-2012
 
 ```{r}
 
+# Number of Events By Location
 
+temp |>
+  filter(!is.na(Location)) |>
+  group_by(Location) |>
+  summarise(num_here = n()) |>
+  ggplot(aes(x = Location, y = num_here, fill = Location)) +
+  geom_col() +
+  labs(x = "Location",
+    y = "Number of Events",
+    title = "Number of Events by Location"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_brewer(palette = "Dark2")
+
+
+```
+
+```{r}
+
+# Number of Events by Day of Week
+
+temp |>
+  filter(!is.na(Day_of_Week)) |>
+  group_by(Day_of_Week) |>
+  summarise(num_this_day = n()) |>
+  ggplot(aes(x = Day_of_Week, y = num_this_day, fill = Day_of_Week)) +
+  geom_col() +
+  labs(x = "Day",
+    y = "Number of Events",
+    title = "Number of Events by Weekday"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+```
+
+
+```{r}
+
+# Average Attendance by Weekday
+temp |>
+  filter(!is.na(Day_of_Week), !is.na(Count)) |>
+  group_by(Day_of_Week) |>
+  summarise(avg_count = mean(Count)) |>
+  ggplot(aes(x = Day_of_Week, y = avg_count, fill = Day_of_Week)) +
+  geom_col() +
+  labs(x = "Day",
+    y = "Average Count",
+    title = "Average Number of Attendees by Weekday"
+  ) 
+
+```
+
+```{r}
+
+# Average Attendees for Each Day over Years
+temp |>
+  filter(!is.na(Day_of_Week), !is.na(Count)) |>
+  group_by(Semester_Year, Day_of_Week) |>
+  summarise(avg_count_per_semester = mean(Count)) |>
+  ggplot(aes(x = Semester_Year, y = avg_count_per_semester, color = Day_of_Week)) +
+  geom_point() + 
+  geom_smooth(se = FALSE) +
+  labs(x = "Year",
+    y = "Average Count",
+    title = "Number of Attendees by Weekday over Years"
+  )  +
+  scale_color_brewer(palette = "Dark2")
+
+# Average Attendees for Each Genre over Years
+
+temp |>
+  filter(!is.na(Location), !is.na(Count)) |>
+  group_by(Semester_Year, Genre) |>
+  summarise(avg_count_per_sem = mean(Count)) |>
+  ggplot(aes(x = Semester_Year, y = avg_count_per_sem, color = Genre)) +
+  geom_point() + 
+  geom_smooth(se = FALSE) +
+  labs(x = "Year",
+    y = "Average Count",
+    title = "Number of Attendees by Weekday"
+  ) 
+
+
+temp |>
+  filter(!is.na(Location), !is.na(Count)) |>
+  group_by(Semester_Year, Location) |>
+  summarise(avg_count_per_location = mean(Count)) |>
+  ggplot(aes(x = Semester_Year, y = avg_count_per_location, color = Location)) +
+  geom_point() + 
+  geom_smooth(se = FALSE) +
+  labs(x = "Year",
+    y = "Average Count",
+    title = "Number of Attendees by Weekday"
+  ) 
+
+```
+
+
+```{r}
+
+# Install once if needed
+install.packages("corrplot")
+
+library(corrplot)
+
+temp |>
+  filter(!is.na(Count), !is.na(Event_Type)) |>
+  aov(Count ~ Event_Type, data = _) |>
+  summary()
+
+summary(temp)
 ```

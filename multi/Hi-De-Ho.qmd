@@ -53,27 +53,13 @@ This is a collection of short video projects which I've directed, edited, and/or
 
 ```
 
-### Yosemite
+### Dream Girl
 
 ```{=html}
 
 <div style="text-align: center;">
     <iframe width="640" height="360" 
-      src="https://www.youtube.com/embed/879q3DxjQzg" 
-      frameborder="0" 
-      allowfullscreen>
-    </iframe>
-  </div>
-
-```
-
-### Dream Girls 
-
-```{=html}
-
-<div style="text-align: center;">
-    <iframe width="640" height="360" 
-      src="https://www.youtube.com/embed/LvAVBv2rivE" 
+      src="https://youtu.be/SqhIhw4Q1GE" 
       frameborder="0" 
       allowfullscreen>
     </iframe>
@@ -94,19 +80,6 @@ This is a collection of short video projects which I've directed, edited, and/or
   </div>
 ```
 
-### Paranormal Inactivity
-
-```{=html}
-
-  <div style="text-align: center;">
-    <iframe width="640" height="360" 
-      src="https://www.youtube.com/embed/3JOYJG4ZZQk" 
-      frameborder="0" 
-      allowfullscreen>
-    </iframe>
-  </div>
-
-```
 
 ### bleeeppp
 
@@ -130,7 +103,7 @@ This is a collection of short video projects which I've directed, edited, and/or
 
 This short documentary gives a brief, intimate peek into the parties thrown throughout Halloweekend 2024 (Oct 31 - Nov 2). Examining music, design, communication pipelines, and administrative changes at Pomona since the 90’s, we designed this project to include the documentary below and a complementary ethnographic research paper.
 
-[click here to watch](https://jazzminpearlduncan.github.io/Website-Project/multi/Halloweekend.html)
+[click here to watch](https://jazzminpearlduncan.github.io/jazz/multi/Halloweekend.html)
 
 ### Happy Everyday 
 
