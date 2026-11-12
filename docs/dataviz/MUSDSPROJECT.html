@@ -197,10 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#add-all-data-to-one-data-frame" id="toc-add-all-data-to-one-data-frame" class="nav-link" data-scroll-target="#add-all-data-to-one-data-frame">add all data to one data frame</a>
   <ul class="collapse">
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">2011-2012</a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2012-2013</a></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2013-2014</a></li>
-  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2011-2012</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">2012-2013</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -236,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Read csv files containing the attendance data</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>all_years_files <span class="ot">&lt;-</span> </span>
@@ -250,565 +247,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>all_years_data <span class="ot">&lt;-</span> <span class="fu">setNames</span>(</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(all_years_files, read_csv),</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">basename</span>(all_years_files))</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>all_years_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$`2008Fall.csv`
-# A tibble: 23 × 5
-   Date     Event                      Count Notes                      Location
-   &lt;chr&gt;    &lt;chr&gt;                      &lt;chr&gt; &lt;chr&gt;                      &lt;chr&gt;   
- 1 Sept. 21 Celliola                   150   &lt;NA&gt;                       Little …
- 2 Sept. 24 Francisco Aguabella        75-82 Fluid movement             Lyman H…
- 3 Sept. 28 Davitt Moroney             124   &lt;NA&gt;                       Little …
- 4 Oct. 4   Millennium Consort Singers 250   &lt;NA&gt;                       Little …
- 5 Oct. 11  Pomona College Orchestra   245   &lt;NA&gt;                       Little …
- 6 Oct. 12  Pomona College Orchestra   282   &lt;NA&gt;                       Little …
- 7 Oct. 25  Pelev/Ashcraft             130   &lt;NA&gt;                       Little …
- 8 Oct. 29  Student Recital            80    Fluid movement             Lyman H…
- 9 Nov. 2   William Peterson           120   by Graydon in audience     Little …
-10 Nov. 3   Amir ElSaffar Lecture/Demo 15    Monday after Halloween/fi… Lyman H…
-# ℹ 13 more rows
-
-$`2009Fall.csv`
-# A tibble: 20 × 5
-   Date     Event                 Count Notes Location        
-   &lt;chr&gt;    &lt;chr&gt;                 &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt;           
- 1 Sept. 20 Celliola              184   NA    Little Bridges  
- 2 Oct. 3   G. Lee                189   NA    Little Bridges  
- 3 Oct. 10  Orchestra             273   NA    Little Bridges  
- 4 Oct. 11  Orchestra             266   NA    Little Bridges  
- 5 Oct. 28  Student Recital       50    NA    Lyman Hall      
- 6 Nov. 1   Baroque Recital       176+  NA    Little Bridges  
- 7 Nov. 1   EnsembleGREEN         70    NA    Little Bridges  
- 8 Nov. 8   Sanders &amp; Friends     172   NA    Little Bridges  
- 9 Nov. 13  PC Band               142   NA    Little Bridges  
-10 Nov. 14  Millennium Consort S. 196   NA    Little Bridges  
-11 Nov. 15  PC Band               178   NA    Little Bridges  
-12 Nov. 21  Cord a vide           110   NA    Little Bridges  
-13 Nov. 30  Afro-Cuban            130   NA    Lyman Hall      
-14 Dec. 4   Choir                 287   NA    Little Bridges  
-15 Dec. 5   Orchestra             &lt;NA&gt;  NA    Garrison Theater
-16 Dec. 6   Choir                 278   NA    Little Bridges  
-17 Dec. 6   Orchestra             150   NA    Garrison Theater
-18 Dec. 7   Gamelan               210   NA    Little Bridges  
-19 Dec. 8   Student Recital       &lt;NA&gt;  NA    Lyman Hall      
-20 Dec. 9   Student Recital       &lt;NA&gt;  NA    Lyman Hall      
-
-$`2009Spring.csv`
-# A tibble: 40 × 5
-   Date     Event                        Count Notes                    Location
-   &lt;chr&gt;    &lt;chr&gt;                        &lt;chr&gt; &lt;chr&gt;                    &lt;chr&gt;   
- 1 Feb. 6   Friday Noon Concert          100   rainy                    Lyman H…
- 2 Feb. 7   Lee Recital                  234   Valentines Day / family… Little …
- 3 Feb. 14  Bradford and Mo'Tet          292   &lt;NA&gt;                     Little …
- 4 Feb. 18  Korean Trio                  70    &lt;NA&gt;                     Lyman H…
- 5 Feb. 20  Ussachevsky                  ~230  Academy Awards day       Lyman H…
- 6 Feb. 22  20th &amp; 21st C. Chamber Music 104   at one time - up to 100… Little …
- 7 Feb. 25  Student Recital              35    &lt;NA&gt;                     Lyman H…
- 8 Feb. 27  Pomona College Orchestra     260   &lt;NA&gt;                     Little …
- 9 March. 1 Pomona College Orchestra     215   &lt;NA&gt;                     Little …
-10 Mar. 4   Kenny Endo Lect/Demo         125   &lt;NA&gt;                     Lyman H…
-# ℹ 30 more rows
-
-$`2010Fall.csv`
-# A tibble: 26 × 6
-   Date          Time   Event                        Count Notes        Location
-   &lt;chr&gt;         &lt;time&gt; &lt;chr&gt;                        &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   
- 1 Sun Sept 19   15:00  Celliola                     167   ran out of … Little …
- 2 Sat. Sept. 25 16:00  D. Alexander Memorial        306   &lt;NA&gt;         Little …
- 3 Sun. Sept 26  15:00  Cornucopia                   135   107¬∫ outsi… Little …
- 4 Sat. Oct 2    20:00  G. Lee                       209   &lt;NA&gt;         Little …
- 5 Sun. Oct 3    15:00  Pelev, Ko, Ashcraft          154   time confus… Little …
- 6 Sat. Oct. 9   20:00  PC Orch w/J. Sanders         328   &lt;NA&gt;         Little …
- 7 Sun. Oct 10   15:00  PC Orch w/J. Sanders         231   time confus… Little …
- 8 Tues. Oct. 12 20:00  Anonymous 4                  415   count appro… Little …
- 9 Wed. Oct 27   20:15  Student Recital              60    approx. cou… Lyman H…
-10 Sat. Oct. 30  20:00  Hogle Brown, Graff, Kirchner 154   ran out of … Little …
-# ℹ 16 more rows
-
-$`2010Spring.csv`
-# A tibble: 29 × 5
-   Date    Event               Count Notes                Location      
-   &lt;chr&gt;   &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;         
- 1 Feb.  6 Ussachevsky           150 &lt;NA&gt;                 Lyman Hall    
- 2 Feb. 12 Bluegrass             425 Family Weekend       Little Bridges
- 3 Feb. 13 Kohn &amp; Kohn           269 Family Weekend       Little Bridges
- 4 Feb. 19 Ming Tsu               81 Friday/Cold &amp; Rainy  Little Bridges
- 5 Feb. 21 Todor Pelev           173 &lt;NA&gt;                 Little Bridges
- 6 Feb. 24 Student Recital        75 &lt;NA&gt;                 Lyman Hall    
- 7 Feb. 26 Lytle &amp; Lee           104 &lt;NA&gt;                 Little Bridges
- 8 Feb. 28 Lebow &amp; Blankenburg   160 &lt;NA&gt;                 Little Bridges
- 9 Mar. 6  Orchestra             190 rainy &amp; cold         Little Bridges
-10 Mar. 7  Orchestra             132 Academy Awards night Little Bridges
-# ℹ 19 more rows
-
-$`2011Fall.csv`
-# A tibble: 22 × 6
-   Date          Time   Event                               Count Notes Location
-   &lt;chr&gt;         &lt;time&gt; &lt;chr&gt;                               &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
- 1 Sun Sept 11   15:00  Celliola                            198?  &lt;NA&gt;  Little …
- 2 Fri. Sept. 16 20:00  Hampson                             455   &lt;NA&gt;  Little …
- 3 Sun. Sept. 25 15:00  Peterson Lec/Rec                    124   Gard… Little …
- 4 Fri. Sept. 30 20:00  Pelev &amp; Lebow                       180   &lt;NA&gt;  Little …
- 5 Sat. Oct. 1   20:00  Lee - solo rec.                     181   &lt;NA&gt;  Little …
- 6 Sat. Oct. 8   20:00  Orchestra                           281   Yom … Little …
- 7 Sun. Oct. 9   15:00  Orchestra                           275   556   Little …
- 8 Wed. Nov. 2   20:15  Student Recital                     c. 65 &lt;NA&gt;  Lyman H…
- 9 Sat. Nov. 5   20:00  Cornucopia                          163   &lt;NA&gt;  Little …
-10 Sun. Nov. 6   15:00  Hammers &amp; Sticks  Piano &amp; Percussi… 146   Cold… Little …
-# ℹ 12 more rows
-
-$`2011Spring.csv`
-# A tibble: 34 × 6
-   Date         Time   Event                          Count Notes       Location
-   &lt;chr&gt;        &lt;time&gt; &lt;chr&gt;                          &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;   
- 1 Fri. Feb. 4  20:00  Ussachevsky - Fri              100   &lt;NA&gt;        Lyman H…
- 2 Sat. Feb. 5  16:00  Ussachevsky - Sat Lecture      70    &lt;NA&gt;        Lyman H…
- 3 Sat. Feb. 5  20:00  Ussachevsky - Sat              130   &lt;NA&gt;        Lyman H…
- 4 Sat. Feb. 12 20:00  Chinyakara                     128   &lt;NA&gt;        Little …
- 5 Sun. Feb. 13 17:00  Schoenberg lecture             32    &lt;NA&gt;        Lyman H…
- 6 Sun. Feb. 13 19:00  Blankenburg/Formalist Stg Qtet 79    &lt;NA&gt;        Little …
- 7 Sat. Feb. 19 20:00  Kohn + Kohn                    309   Family Wke… Little …
- 8 Sun. Feb. 20 15:00  Lytle &amp; Lee                    130   Family Wke… Little …
- 9 Fri. Feb. 25 20:00  Orchestra                      226   rainy       Little …
-10 Sun. Feb. 27 15:00  Orchestra                      263   Academy Aw… Little …
-# ℹ 24 more rows
-
-$`2012Fall.csv`
-# A tibble: 28 × 6
-   Date     Time   Event              Count     Notes                   Location
-   &lt;chr&gt;    &lt;time&gt; &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;                   &lt;chr&gt;   
- 1 9/16/12  15:00  Celliola           100       HOT                     Little …
- 2 9/22/12  20:00  Lee - Keyboard Kal 152       looked like better att… Little …
- 3 9/28/12  20:00  Kleinecke-Boyer    187-plus  unable to get good ope… Little …
- 4 9/30/12  15:00  Peterson           Cancelled &lt;NA&gt;                    &lt;NA&gt;    
- 5 10/6/12  20:00  Wright/Moss        142       ran out of programs     Little …
- 6 10/7/12  15:00  Calambache         160       &lt;NA&gt;                    Little …
- 7 10/13/12 10:30  Benjamin Memorial  194       &lt;NA&gt;                    Little …
- 8 10/13/12 20:00  PCO                309       &lt;NA&gt;                    Little …
- 9 10/14/12 15:00  PCO                355       Founders Day celebrati… Little …
-10 10/26/12 20:00  Cornucopia         143       &lt;NA&gt;                    Little …
-# ℹ 18 more rows
-
-$`2012Spring.csv`
-# A tibble: 39 × 6
-   Date         Time   Event                     Count Notes Location      
-   &lt;chr&gt;        &lt;time&gt; &lt;chr&gt;                     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;         
- 1 Fri. Feb. 3  20:00  Ussachevsky               ?     &lt;NA&gt;  Lyman Hall    
- 2 Sat. Feb. 4  20:00  Ussachevsky               107   &lt;NA&gt;  Little Bridges
- 3 Tues. Feb. 7 16:30  Jazz                      ?     &lt;NA&gt;  Lyman Hall    
- 4 Sun. Feb. 12 15:00  Christoph Bull            201   &lt;NA&gt;  Little Bridges
- 5 Sat. Feb. 18 20:00  MCS &amp; PCC                 396   &lt;NA&gt;  Little Bridges
- 6 Wed. Feb. 22 20:15  Student Recital           c. 35 &lt;NA&gt;  Lyman Hall    
- 7 Sun. Feb. 26 15:00  Trans-Atlantic            220   &lt;NA&gt;  Lyman Hall    
- 8 Fri. March 2 20:00  Orchestra &amp; Sheu          250   &lt;NA&gt;  Little Bridges
- 9 Sat. March 3 20:00  Messiaen &amp; Crockett (lee) 141   &lt;NA&gt;  Little Bridges
-10 Sun. March 4 15:00  Orchestra &amp; Sheu          296   &lt;NA&gt;  Little Bridges
-# ℹ 29 more rows
-
-$`2013Fall.csv`
-# A tibble: 21 × 6
-   Date         Time   Event                        Count        Notes  Location
-   &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;                        &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;   
- 1 Sun. 9-15    3pm    Celliola                     125          &lt;NA&gt;   Little …
- 2 Sat. 9-21    8pm    Lee - solo                   225          &lt;NA&gt;   Little …
- 3 Sun. 9-29    3pm    D. Cleveland, guest organist 142          (40@r… Little …
- 4 Sat. Oct. 5  8pm    Garth Newel Quartet          129          c. 45… Little …
- 5 Sat. Oct. 12 8pm    Orchestra w/G. Lytle         294          &lt;NA&gt;   Little …
- 6 Sun. Oct. 13 3pm    Orchestra w/G. Lytle         261          555    Little …
- 7 Fri. Oct. 25 8pm    Baroque Masters Kim &amp; Lee    189          c. 52… Little …
- 8 Sun. Oct. 27 8pm    Millennium Consort Singers   212 + PCC 65 c. 10… Little …
- 9 Wed. Oct 30  8:15pm Student Recital              71           &lt;NA&gt;   Lyman H…
-10 Sat. Nov. 2  8pm    Middle East Ensemble         252          &lt;NA&gt;   Little …
-# ℹ 11 more rows
-
-$`2013Spring.csv`
-# A tibble: 38 × 6
-   Date    Time   Event             Count Notes                     Location    
-   &lt;chr&gt;   &lt;time&gt; &lt;chr&gt;             &lt;chr&gt; &lt;chr&gt;                     &lt;chr&gt;       
- 1 1/27/13 15:00  Peterson          153   &lt;NA&gt;                      Little Brid…
- 2 2/1/13  20:00  Ussachevsky       60    &lt;NA&gt;                      Lyman Hall  
- 3 2/2/13  15:00  Ussachevsky L/D   31    &lt;NA&gt;                      Lyman Hall  
- 4 2/2/13  20:00  Ussachevsky       66    &lt;NA&gt;                      Lyman Hall  
- 5 2/8/13  20:00  Pelev             74    rainy and cold            Little Brid…
- 6 2/9/13  20:00  Eclipse Quartet   121   &lt;NA&gt;                      Little Brid…
- 7 2/15/13 20:00  Bluegrass         539   parents weekend           Little Brid…
- 8 2/16/13 15:00  PC Talent show    323   (not a music dept. event) Little Brid…
- 9 2/16/13 20:00  Kohn Music        164   parents weekend           Little Brid…
-10 2/17/13    NA  Latino/Chic. Conv 240   (not a music dept. event) Little Brid…
-# ℹ 28 more rows
-
-$`2014Fall.csv`
-# A tibble: 25 × 6
-   Date          Time   Event                             Count Notes   Location
-   &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;                             &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   
- 1 Sun. Sept. 14 3pm    Celliola                          112   HOT     Little …
- 2 Fri. Sept. 19 8pm    LA Guitar Quartet                 557   KUSC p… Little …
- 3 Sat. Sept. 27 8pm    Mojave Trio                       184   Large … Little …
- 4 Sun. Sept. 28 3pm    Bew B'ak'tun                      97    &lt;NA&gt;    Little …
- 5 Sat. Oct. 11  8pm    PC Orchestra                      320   Founde… Little …
- 6 Sun. Oct. 12  3pm    PC Orchestra                      242   &lt;NA&gt;    Little …
- 7 Sat. Oct. 25  8pm    Beethoven Cello Sonatas I         255   &lt;NA&gt;    Little …
- 8 Sun. Oct. 26  3pm    Looking For Answers - T. Flaherty 64    &lt;NA&gt;    Little …
- 9 Wed. Oct. 29  8:15pm Student Recital                   &lt;NA&gt;  &lt;NA&gt;    Lyman H…
-10 Sat. Nov. 1   8pm    Beethoven Cello Sonatas 2         234   &lt;NA&gt;    Little …
-# ℹ 15 more rows
-
-$`2014Spring.csv`
-# A tibble: 35 × 6
-   Date         Time  Event                       Count Notes           Location
-   &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;                       &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;   
- 1 Fri. Jan 31  8pm   van Zyl - guest pianist     152   &lt;NA&gt;            Little …
- 2 Sat. Feb. 1  8pm   Chatham Baroque             147   extra receptio… Little …
- 3 Sun. Feb. 2  3pm   Thornblade &amp; Ray            62    &lt;NA&gt;            Little …
- 4 Tues. Feb. 4 &lt;NA&gt;  Convocation                 458   &lt;NA&gt;            Little …
- 5 Sat. Feb. 8  4pm   Ussachevsky-lecture/demo    ?     &lt;NA&gt;            Lyman H…
- 6 Sat. Feb. 8  8pm   Ussachevsky-concert         76    looked bigger   Lyman H…
- 7 Sun. Feb. 9  3pm   Organist Alan Lewis         169   food good a re… Little …
- 8 Sat. Feb. 15 8pm   Guitar Extravaganza         275   no reception    Little …
- 9 Fri. Feb. 28 8pm   Orchestra - Concerto winner 260   no reception    Little …
-10 Sat. Mar. 1  8pm   Blankenburg/Cook            95    no reception    Little …
-# ℹ 25 more rows
-
-$`2015Fall.csv`
-# A tibble: 22 × 6
-   Date          Time  Event                     Count Notes            Location
-   &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;                     &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;   
- 1 Sun. Sept. 13 3pm   Celliola                  155   hot              Little …
- 2 Sat. Sept. 26 8pm   Music of RC Seeger        154   &lt;NA&gt;             Little …
- 3 Sun. Sept. 27 3pm   Chamber Music Extrava     249   &lt;NA&gt;             Little …
- 4 Sat. Oct. 2   8pm   PC Orchestra              203   &lt;NA&gt;             Little …
- 5 Sun. Oct. 4   3pm   PC Orchestra              268   &lt;NA&gt;             Little …
- 6 Sat. Oct. 10  8pm   Chalifour                 380   &lt;NA&gt;             Little …
- 7 Sun. Nov. 1   3pm   Beethoven Sonatas/Lee     282   &lt;NA&gt;             Little …
- 8 Fri. Nov. 6   8pm   Senior Recital - Ryan Luo 116   &lt;NA&gt;             Little …
- 9 Sun. Nov. 8   3pm   Trio Fugu                 137   &lt;NA&gt;             Little …
-10 Fri. Nov. 13  8pm   Band                      86    [attack on Pari… Little …
-# ℹ 12 more rows
-
-$`2015Spring.csv`
-# A tibble: 38 × 6
-   Date         Time   Event                 Count Notes               Location 
-   &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;                 &lt;chr&gt; &lt;chr&gt;               &lt;chr&gt;    
- 1 Fri. Feb. 6  8pm    Ussachevsky Concert   76    &lt;NA&gt;                Lyman Ha…
- 2 Sat. Feb. 7  8pm    Ussachevsky Concert   59    &lt;NA&gt;                Lyman Ha…
- 3 Fri. Feb. 13 8pm    Pomonapalooza         255   Family Weekend      Bridges …
- 4 Sat. Feb. 14 8pm    Genevieve Lee Recital 132   Family Weekend      Bridges …
- 5 Sun. Feb. 15 3pm    Pomona Composers      94    Family Weekend      Bridges …
- 6 Fri. Feb. 20 8pm    Burke Sr. Recital     ?     &lt;NA&gt;                Lyman Ha…
- 7 Sun. Feb. 22 3pm    Guitar Extravaganza   113   Oscar Sunday        Bridges …
- 8 Wed. Feb. 25 8:15pm Student Recital       30    very few performers Lyman Ha…
- 9 Fri. Mar. 6  8pm    Orchestra             233   Concerto Comp.      Bridges …
-10 Sun. Mar. 8  3pm    Orchestra             274   Concerto Comp.      Bridges …
-# ℹ 28 more rows
-
-$`2016Fall.csv`
-# A tibble: 31 × 6
-   Date          Time     Event                  Count Notes            Location
-   &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;                  &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;   
- 1 Sun. Aug. 28  evening  First Yr Book          630   &lt;NA&gt;             Little …
- 2 Tues. Aug. 30 11:00 AM Convocation            664   FULL HOUSE!      Little …
- 3 Sun. Sept. 11 3pm      Celliola               179   &lt;NA&gt;             Little …
- 4 Fri. Sept. 23 8pm      Brentano               289   &lt;NA&gt;             Little …
- 5 Sun. Sept. 25 3pm      Chamber Music Ext      238   &lt;NA&gt;             Little …
- 6 Sat. Oct. 1   10:30am  Lee Children's Concert 21/28 20 capacity by … Little …
- 7 Sat. Oct. 1   8pm      Lee Recital            242   &lt;NA&gt;             Little …
- 8 Fri. Oct. 7   8pm      PCO                    262   counter acting … Little …
- 9 Sat. Oct. 8   3pm      Kwok Memorial          513   counter acting … Little …
-10 Sun. Oct. 9   3pm      PCO                    340   counter acting … Little …
-# ℹ 21 more rows
-
-$`2016Spring.csv`
-# A tibble: 35 × 6
-   Date         Time  Event                    Count Notes Location             
-   &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;                    &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt;                
- 1 Fri. Jan 29  8pm   Lee: Debussy, Kohn &amp; Ung 239   NA    Bridges Hall of Music
- 2 Fri. Feb. 5  8pm   Ussachevsky Concert      79    NA    Lyman Hall           
- 3 Sat. Feb. 6  8pm   Ussachevsky Concert      c. 50 NA    Lyman Hall           
- 4 Fri. Feb. 12 8pm   Alumnipalooza            266   NA    Bridges Hall of Music
- 5 Sat. Feb. 13 8pm   Plucked String           185   NA    Bridges Hall of Music
- 6 Sat. Feb. 20 8pm   LA Harpette              240   NA    Bridges Hall of Music
- 7 Fri. Feb. 26 8pm   PCO                      219   NA    Bridges Hall of Music
- 8 Sat. Feb. 27 8pm   Alex Woods, Soph Recital 59    NA    Lyman Hall           
- 9 Sun Feb. 28  3pm   PCO                      317   NA    Bridges Hall of Music
-10 Wed. Mar. 2  7pm   Student Recital          ?     NA    Lyman Hall           
-# ℹ 25 more rows
-
-$`2017Fall.csv`
-# A tibble: 33 × 6
-   Date          Time     Event                             Count Notes Location
-   &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;                             &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
- 1 Tues. Sept. 5 11:00 AM "Convocation"                     600+… over… Little …
- 2 Fri. Sept. 8  4pm      "Walwyn Lecture"                  &lt;NA&gt;  &lt;NA&gt;  Lyman H…
- 3 Sun. Sept. 10 3pm      "Celliola"                        156   &lt;NA&gt;  Little …
- 4 Wed. 9/13     &lt;NA&gt;     "Book lecture"                    214   &lt;NA&gt;  Little …
- 5 Fri. Sept. 15 8pm      "Jung &amp; Tsai"                     129   &lt;NA&gt;  Little …
- 6 Sun. Sept. 17 3pm      "M√∂ller &amp; Fraticelli Guitar Duo" 208   &lt;NA&gt;  Little …
- 7 Sat. Sept. 23 8pm      "N. Ford \"ORFEUS\""              302   &lt;NA&gt;  Little …
- 8 Sat. Sept. 30 8pm      "Lee Solo recital"                129   &lt;NA&gt;  Little …
- 9 Sun. Oct. 1   2pm      "Memorial - Bell"                 83    &lt;NA&gt;  Little …
-10 Fri. Oct. 6   8pm      "PCO"                             285   &lt;NA&gt;  Little …
-# ℹ 23 more rows
-
-$`2017Spring.csv`
-# A tibble: 37 × 6
-   Date          Time   Event                 Count Notes Location         
-   &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;                 &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;            
- 1 Fri. Feb. 3   8pm    Ussachevsky 1         58    &lt;NA&gt;  Lyman Hall       
- 2 Sat. Feb. 4   3pm    Ussachevsky Lect/Demo 13    &lt;NA&gt;  Lyman Hall       
- 3 Sat. Feb. 4   8pm    Ussachevsky 2         62    &lt;NA&gt;  Lyman Hall       
- 4 Sun. Feb. 5   3pm    Peterson, organ       296   &lt;NA&gt;  Bridges Hall of M
- 5 Sat. Feb. 11  8pm    Lee &amp; Bahn            141   &lt;NA&gt;  Bridges Hall of M
- 6 Sun.  Feb. 12 3pm    Ming &amp; Friends        110   &lt;NA&gt;  Bridges Hall of M
- 7 Wed. Feb. 15  8:15pm Student Recital       28    &lt;NA&gt;  Lyman Hall       
- 8 Sat. Feb. 18  8pm    Chamber Orchestra     239   &lt;NA&gt;  Bridges Hall of M
- 9 Fri. Feb. 24  8pm    PCO                   289   &lt;NA&gt;  Bridges Hall of M
-10 Sun. Feb. 26  3pm    PCO                   324+  &lt;NA&gt;  Bridges Hall of M
-# ℹ 27 more rows
-
-$`2018Fall.csv`
-# A tibble: 30 × 6
-   Date     Time     Event                          Count    Notes      Location
-   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;                          &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;   
- 1 9/4/18   11:00 AM "Convocation"                  558      full exce… Little …
- 2 9/17/18  3pm      "Celliola"                     158      &lt;NA&gt;       Little …
- 3 9/26/18  4:15pm   "M. Chingodza"                 &lt;NA&gt;     &lt;NA&gt;       Lyman H…
- 4 9/27/18  4:15pm   "Chen - Improv Wkshop"         &lt;NA&gt;     &lt;NA&gt;       Lyman H…
- 5 9/28/18  8pm      "Cage \"Electronic Music‚Ä¶\"" 239      &lt;NA&gt;       Little …
- 6 10/7/18  3pm      "Chamber Music Extrav"         244      &lt;NA&gt;       Little …
- 7 10/12/18 12:15pm  "FNC-Lee&amp;Parkins"              191      &lt;NA&gt;       Lyman H…
- 8 10/12/18 8pm      "PCO"                          306      &lt;NA&gt;       Little …
- 9 10/14/18 3pm      "PCO"                          274      &lt;NA&gt;       Little …
-10 10/17/18 8:15pm   "Student Recital"              no count &lt;NA&gt;       Lyman H…
-# ℹ 20 more rows
-
-$`2018Spring.csv`
-# A tibble: 41 × 6
-   Date         Time    Event                        Count        Notes Location
-   &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;                        &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;   
- 1 Sat. Jan. 27 8pm     Brandes/Moe                  cancelled -… &lt;NA&gt;  Bridges…
- 2 Fri. Feb. 2  8pm     Ussachevsky 1                82           &lt;NA&gt;  Lyman H…
- 3 Sat. Feb. 3  3pm     Ussachevsky Lect/Demo        29           &lt;NA&gt;  Lyman H…
- 4 Sat. Feb. 3  8pm     Ussachevsky 2                98           &lt;NA&gt;  Lyman H…
- 5 Fri. Feb. 11 12:30pm Givens ‚Äì candidate concert 22           &lt;NA&gt;  Bridges…
- 6 Fri. Feb. 11 8pm     Wright/Moss                  129          &lt;NA&gt;  Bridges…
- 7 Sun. Feb. 9  3pm     Peterson, organ              202          &lt;NA&gt;  Bridges…
- 8 Wed. Feb. 14 8:15pm  Student Recital              48           &lt;NA&gt;  Lyman H…
- 9 Fri. Feb. 16 8pm     Fac. Recital-Family Wkend    213          &lt;NA&gt;  Bridges…
-10 Mon. Feb. 19 4:15pm  Gamelan Cudamani_MC          --           &lt;NA&gt;  Bryant  
-# ℹ 31 more rows
-
-$`2019Fall.csv`
-# A tibble: 30 × 6
-   Date     Time     Event                 Count     Notes Location      
-   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;                 &lt;chr&gt;     &lt;lgl&gt; &lt;chr&gt;         
- 1 9/4/18   11:00 AM Convocation           767       NA    Little Bridges
- 2 9/15/19  3pm      Celliola              215       NA    Little Bridges
- 3 9/29/19  3pm      Jeng and Dai (violin) 181       NA    Little Bridges
- 4 10/2/19  4:15pm   Pakaraguian KE        132       NA    Lyman Hall    
- 5 10/3/19  4:15pm   Althea Waites         65        NA    Lyman Hall    
- 6 10/5/19  8pm      Lee Recital           cancelled NA    Little Bridges
- 7 10/11/19 8pm      PCO                   293       NA    Little Bridges
- 8 10/13/19 3pm      PCO                   349       NA    Little Bridges
- 9 10/16/19 8:15pm   Student Recital       27        NA    Lyman Hall    
-10 10/25/19 8pm      Dubon Sr. Recital     63        NA    Lyman Hall    
-# ℹ 20 more rows
-
-$`2019Spring.csv`
-# A tibble: 42 × 6
-   Date    Time   Event                            Count          Notes Location
-   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;                            &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;   
- 1 2/1/19  8pm    Ussachevsky 1                    49             &lt;NA&gt;  Lyman H…
- 2 2/2/19  3pm    Ussachevsky Lect/Demo            25             &lt;NA&gt;  Lyman H…
- 3 2/2/19  8pm    Ussachevsky 2                    63             &lt;NA&gt;  Lyman H…
- 4 2/3/19  3pm    Peterson, organ                  197            &lt;NA&gt;  Bridges…
- 5 2/6/19  4:15pm Mongolian Singer (Hargana)       153            &lt;NA&gt;  &lt;NA&gt;    
- 6 2/15/19 8pm    Fac. Recital-Givens-Family Wkend 197            &lt;NA&gt;  Bridges…
- 7 2/20/19 8:15pm Student Recital                  32             &lt;NA&gt;  Lyman H…
- 8 2/24/19 8pm    LA Harptette                     181            &lt;NA&gt;  Bridges…
- 9 3/1/19  8pm    PCO                              no count (c.1… cold… Bridges…
-10 3/2/19  8pm    S. Betanzos,  Jr Rec             64             &lt;NA&gt;  Lyman H…
-# ℹ 32 more rows
-
-$`2020Spring.csv`
-# A tibble: 38 × 6
-   Date    Time    Event                 Count Notes Location         
-   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                 &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;            
- 1 1/31/20 8pm     Ussachevsky 1         72    &lt;NA&gt;  Lyman Hall       
- 2 2/1/20  3pm     Ussachevsky Lect/Demo 23    &lt;NA&gt;  Lyman Hall       
- 3 2/1/20  8pm     Ussachevsky 2         73    &lt;NA&gt;  Lyman Hall       
- 4 2/2/20  3pm     Peterson, organ       105   &lt;NA&gt;  Bridges Hall of M
- 5 2/8/20  8pm     Lee                   195   &lt;NA&gt;  Bridges Hall of M
- 6 2/14/20 12:15pm FNC: Young &amp; Chang    143   &lt;NA&gt;  Lyman Hall       
- 7 2/14/20 8pm     PRISM                 297   &lt;NA&gt;  Bridges Hall of M
- 8 2/19/20 8:15pm  Student Recital       31    &lt;NA&gt;  Lyman Hall       
- 9 2/23/20 3pm     Mojave Trio           143   &lt;NA&gt;  Bridges Hall of M
-10 2/26/20 4:15pm  Punjabi               120   &lt;NA&gt;  Lyman Hall       
-# ℹ 28 more rows
-
-$`2021Fall.csv`
-# A tibble: 26 × 6
-   Date     Time   Event                          Count    Notes        Location
-   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;                          &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;   
- 1 9/19/21  3pm    Celliola                       CANCELED COVID proto… Bridges…
- 2 9/25/21  8pm    Plucked on Bach-J. Rockwell    250      &lt;NA&gt;         Bridges…
- 3 10/2/21  8pm    Genevieve Lee                  147      &lt;NA&gt;         Bridges…
- 4 10/8/21  8pm    PCO                            286      &lt;NA&gt;         Bridges…
- 5 10/9/21  8pm    Sr. Lecture-Recital - S. Smith 57       &lt;NA&gt;         Lyman H…
- 6 10/10/21 3pm    PCO                            252      &lt;NA&gt;         Bridges…
- 7 10/13/21 7:30pm Student Recital                56       &lt;NA&gt;         Lyman H…
- 8 10/29/19 4pm    Student Recital                42       &lt;NA&gt;         Lyman H…
- 9 10/30/21 12-3pm F√™te musicale                 100      &lt;NA&gt;         Bridges…
-10 11/3/21  8:15pm Student Recital                23       &lt;NA&gt;         Lyman H…
-# ℹ 16 more rows
-
-$`2022Fall.csv`
-# A tibble: 27 × 6
-   Date     Time   Event              Count Notes                       Location
-   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;              &lt;chr&gt; &lt;chr&gt;                       &lt;chr&gt;   
- 1 9/11/22  3pm    Celliola           132   &lt;NA&gt;                        Bridges…
- 2 9/18/22  3pm    F√™te musicale     97    &lt;NA&gt;                        Bridges…
- 3 9/24/22  8pm    Manzanita          155   &lt;NA&gt;                        Bridges…
- 4 10/2/22  3pm    Lee &amp; Friends      176   &lt;NA&gt;                        Bridges…
- 5 10/7/22  8pm    Orchestra          223   &lt;NA&gt;                        Bridges…
- 6 10/9/22  3pm    Orchestra          244   &lt;NA&gt;                        Bridges…
- 7 10/12/22 7:30pm Student Recital    --    cancelled-lack of student … Lyman H…
- 8 10/19/22 4:30pm Adean Ayamara Band 54    in conjunction w/Oldenborg  Lyman H…
- 9 10/21/22 8pm    Givens &amp; Cheng     94    &lt;NA&gt;                        Bridges…
-10 10/23/22 3pm    Ciaramella         179   &lt;NA&gt;                        Bridges…
-# ℹ 17 more rows
-
-$`2022Spring.csv`
-# A tibble: 35 × 6
-   Date    Time   Event                        Count    Notes           Location
-   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;                        &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;   
- 1 2/6/22  3pm    Celliola                     CANCELED COVID protocols Bridges…
- 2 2/11/22 8pm    Ussachevsky 1                CANCELED COVID protocols Lyman H…
- 3 2/12/22 3pm    Ussachevsky Lect/Demo        CANCELED COVID protocols Lyman H…
- 4 2/1/20  8pm    Ussachevsky 2                CANCELED COVID protocols Lyman H…
- 5 2/18/22 4pm    Student Recital              CANCELED COVID protocols Lyman H…
- 6 2/19/22 8pm    Sr. Recital - K. Burgstahler 119      &lt;NA&gt;            Lyman H…
- 7 2/20/22 3pm    Sr. Recital - A. Zhao        94       &lt;NA&gt;            Bridges…
- 8 2/25/22 8pm    PCO                          218      &lt;NA&gt;            Bridges…
- 9 2/27/22 3pm    PCO                          221      &lt;NA&gt;            Bridges…
-10 3/2/22  7:30pm Student Recital              53       &lt;NA&gt;            Lyman H…
-# ℹ 25 more rows
-
-$`2023Fall.csv`
-# A tibble: 26 × 6
-   Date     Time   Event                        Count Notes Location            
-   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;                        &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;               
- 1 9/10/23  3pm    Celliola                     149   &lt;NA&gt;  Bridges Hall of Mus…
- 2 9/17/23  3pm    F√™te musicale               140   &lt;NA&gt;  Bridges Hall of Mus…
- 3 9/24/22  3pm    Cornucopia                   185   &lt;NA&gt;  Bridges Hall of Mus…
- 4 9/30/23  8pm    Lee Beethoven IV (Chalifour) 293   &lt;NA&gt;  Bridges Hall of Mus…
- 5 10/5/23  8pm    Orchestra                    265   &lt;NA&gt;  Bridges Hall of Mus…
- 6 10/8/23  3pm    Orchestra                    238   &lt;NA&gt;  Bridges Hall of Mus…
- 7 10/11/23 7:30pm Student Recital              9     &lt;NA&gt;  Lyman Hall          
- 8 10/20/23 8pm    Lee &amp; deMaine                209   &lt;NA&gt;  Lyman Hall          
- 9 10/22/23 3pm    Artifex Consort              172   &lt;NA&gt;  Bridges Hall of Mus…
-10 10/28/23 8pm    Lee Beethoven V (Gearhart)   167   &lt;NA&gt;  Bridges Hall of Mus…
-# ℹ 16 more rows
-
-$`2023Spring.csv`
-# A tibble: 34 × 6
-   Date    Time   Event             Count Notes Location             
-   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;             &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;                
- 1 1/28/23 &lt;NA&gt;   Tranquada Memoria 168   &lt;NA&gt;  Bridges Hall of Music
- 2 2/3/23  8pm    Ussachevsky       65    &lt;NA&gt;  Lyman Hall           
- 3 2/4/23  8pm    Ussachevsky       97    &lt;NA&gt;  Lyman Hall           
- 4 2/11/23 8pm    Wm. C. Nyaho      147   &lt;NA&gt;  Bridges Hall of Music
- 5 2/15/23 7:30pm Student Recital   10    &lt;NA&gt;  Lyman Hall           
- 6 2/19/23 3pm    F√™te musicale    129   &lt;NA&gt;  Bridges Hall of Music
- 7 4/2/23  3pm    S. Wang Sr. Proj  20    &lt;NA&gt;  Lyman Hall           
- 8 2/24/23 8pm    Orchestra         202   &lt;NA&gt;  Bridges Hall of Music
- 9 2/26/23 3pm    Orchestra         255   &lt;NA&gt;  Bridges Hall of Music
-10 3/3/23  4pm    Student Recital   29    &lt;NA&gt;  Lyman Hall           
-# ℹ 24 more rows
-
-$`2024Fall.csv`
-# A tibble: 31 × 7
-   Date    Time  Event                     Count Students Notes Location        
-   &lt;chr&gt;   &lt;lgl&gt; &lt;chr&gt;                     &lt;chr&gt; &lt;lgl&gt;    &lt;chr&gt; &lt;chr&gt;           
- 1 8/27/24 NA    Opening Convocation       10    NA       &lt;NA&gt;  Bridges Hall of…
- 2 9/14/24 NA    Two Pianos                202   NA       &lt;NA&gt;  Bridges Hall of…
- 3 9/15/24 NA    Celliola &amp; Friends        136   NA       &lt;NA&gt;  Bridges Hall of…
- 4 9/21/24 NA    Rachmaninoff Piano Duos   292   NA       &lt;NA&gt;  Bridges Hall of…
- 5 9/22/24 NA    F√™te musicale            158   NA       &lt;NA&gt;  Bridges Hall of…
- 6 9/25/24 NA    Student Recital           29    NA       &lt;NA&gt;  Lyman Hall      
- 7 9/27/24 NA    FNC: Cornucopia           ?     NA       &lt;NA&gt;  Lyman Hall      
- 8 9/29/24 NA    Wm Peterson Organ Concert 250   NA       &lt;NA&gt;  Bridges Hall of…
- 9 10/4/24 NA    Orchestra                 300   NA       &lt;NA&gt;  Bridges Hall of…
-10 10/6/24 NA    Orchestra                 352   NA       &lt;NA&gt;  Bridges Hall of…
-# ℹ 21 more rows
-
-$`2024Spring.csv`
-# A tibble: 34 × 6
-   Date    Time    Event                   Count      Notes             Location
-   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                   &lt;chr&gt;      &lt;chr&gt;             &lt;chr&gt;   
- 1 1/27/24 8pm     Ray-Kallay duo          105        &lt;NA&gt;              Bridges…
- 2 2/2/24  8pm     Ussachevsky             86         &lt;NA&gt;              Lyman H…
- 3 2/3/24  8pm     Ussachevsky             83         15 for afternoon… Lyman H…
- 4 2/10/24 8pm     Opera Prima             136        &lt;NA&gt;              Bridges…
- 5 2/10/24 8pm     Lee Beethoven VI (Bahn) 132        &lt;NA&gt;              Bridges…
- 6 2/14/24 8pm     Student Recital         22? Or 40? &lt;NA&gt;              Lyman H…
- 7 2/16/24 12:15pm Cornucopia              108        Friday Noon Conc… Lyman H…
- 8 2/23/24 8pm     Orchestra &amp; Choir       477        Beethoven 9       Bridges…
- 9 2/25/24 3pm     Orchestra &amp; Choir       550        Beethoven 9       Bridges…
-10 3/1/24  4pm     Student Recital         34         &lt;NA&gt;              Lyman H…
-# ℹ 24 more rows
-
-$`2025Spring.csv`
-# A tibble: 30 × 7
-   Date    Time  Event           Count Students Notes                   Location
-   &lt;chr&gt;   &lt;lgl&gt; &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                   &lt;chr&gt;   
- 1 2/1/25  NA    Ussachevsky        69       NA &lt;NA&gt;                    Lyman H…
- 2 2/12/25 NA    Student Recital    26       NA &lt;NA&gt;                    Lyman H…
- 3 2/22/25 NA    Biber Sonatas     231       38 &lt;NA&gt;                    Bridges…
- 4 2/23/25 NA    F√™te musicale    145       14 &lt;NA&gt;                    Bridges…
- 5 2/28/25 NA    Student Recital    30       NA &lt;NA&gt;                    Lyman H…
- 6 3/2/25  NA    Levinson/Fadial   197       33 &lt;NA&gt;                    Bridges…
- 7 3/5/25  NA    Rubab &amp; Tabla     199       70 History Dept helped pr… Bridges…
- 8 3/7/25  NA    Orchestra         218      108 &lt;NA&gt;                    Bridges…
- 9 3/9/25  NA    Orchestra         257       59 &lt;NA&gt;                    Bridges…
-10 3/11/25 NA    Jazz              251      122 incl. ~25 in overflow … Lyman H…
-# ℹ 20 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(all_years_data, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$`2008Fall.csv`
-# A tibble: 23 × 5
-   Date     Event                      Count Notes                      Location
-   &lt;chr&gt;    &lt;chr&gt;                      &lt;chr&gt; &lt;chr&gt;                      &lt;chr&gt;   
- 1 Sept. 21 Celliola                   150   &lt;NA&gt;                       Little …
- 2 Sept. 24 Francisco Aguabella        75-82 Fluid movement             Lyman H…
- 3 Sept. 28 Davitt Moroney             124   &lt;NA&gt;                       Little …
- 4 Oct. 4   Millennium Consort Singers 250   &lt;NA&gt;                       Little …
- 5 Oct. 11  Pomona College Orchestra   245   &lt;NA&gt;                       Little …
- 6 Oct. 12  Pomona College Orchestra   282   &lt;NA&gt;                       Little …
- 7 Oct. 25  Pelev/Ashcraft             130   &lt;NA&gt;                       Little …
- 8 Oct. 29  Student Recital            80    Fluid movement             Lyman H…
- 9 Nov. 2   William Peterson           120   by Graydon in audience     Little …
-10 Nov. 3   Amir ElSaffar Lecture/Demo 15    Monday after Halloween/fi… Lyman H…
-# ℹ 13 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(all_years_data<span class="sc">$</span><span class="st">`</span><span class="at">2008Fall.csv</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 23 × 5
-   Date     Event                      Count Notes                      Location
-   &lt;chr&gt;    &lt;chr&gt;                      &lt;chr&gt; &lt;chr&gt;                      &lt;chr&gt;   
- 1 Sept. 21 Celliola                   150   &lt;NA&gt;                       Little …
- 2 Sept. 24 Francisco Aguabella        75-82 Fluid movement             Lyman H…
- 3 Sept. 28 Davitt Moroney             124   &lt;NA&gt;                       Little …
- 4 Oct. 4   Millennium Consort Singers 250   &lt;NA&gt;                       Little …
- 5 Oct. 11  Pomona College Orchestra   245   &lt;NA&gt;                       Little …
- 6 Oct. 12  Pomona College Orchestra   282   &lt;NA&gt;                       Little …
- 7 Oct. 25  Pelev/Ashcraft             130   &lt;NA&gt;                       Little …
- 8 Oct. 29  Student Recital            80    Fluid movement             Lyman H…
- 9 Nov. 2   William Peterson           120   by Graydon in audience     Little …
-10 Nov. 3   Amir ElSaffar Lecture/Demo 15    Monday after Halloween/fi… Lyman H…
-# ℹ 13 more rows</code></pre>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">basename</span>(all_years_files))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
 </div>
 </div>
 </section>
@@ -825,143 +269,223 @@ $`2025Spring.csv`
 <section id="add-all-data-to-one-data-frame" class="level1">
 <h1>add all data to one data frame</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creating function to make it so that all datasets can be added together cleanly</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>standardize_data <span class="ot">&lt;-</span> <span class="cf">function</span>(filename) {</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># take the year from the name of each file, store for later</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  year <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(filename, <span class="dv">1</span>, <span class="dv">4</span>) </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(filename)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select one specific file each round </span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  cleaning_data <span class="ot">&lt;-</span> all_years_data[[filename]]</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># cleaning each column up</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    cleaning_data <span class="ot">&lt;-</span> cleaning_data <span class="sc">|&gt;</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>      <span class="co"># standardize date column</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">Date2 =</span> </span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>          <span class="fu">case_when</span>(</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>            <span class="co"># if its already in the right format, run mdy</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>            <span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">mdy</span>(Date)) <span class="sc">~</span> </span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mdy</span>(Date, <span class="at">quiet =</span> <span class="cn">FALSE</span>),</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(Date, <span class="st">"^</span><span class="sc">\\</span><span class="st">d{1,2}-[A-Za-z]+$"</span>) <span class="sc">~</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>              <span class="fu">paste0</span>(Date, <span class="st">"-"</span>, year) <span class="sc">|&gt;</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>              <span class="fu">dmy</span>(<span class="at">quiet =</span> <span class="cn">FALSE</span>),</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>            <span class="co"># if its not,then remove the period, replace the slashes with spaces, and put the year a the end</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">is.na</span>(<span class="fu">mdy</span>(Date)) <span class="sc">~</span>  </span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_remove</span>(Date, <span class="st">"^(Sun|Mon|Tue|Wed|Thu|Fri|Sat)+</span><span class="sc">\\</span><span class="st">.?</span><span class="sc">\\</span><span class="st">s+"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_replace</span>(<span class="st">"Aprl|Ap</span><span class="sc">\\</span><span class="st">."</span>, <span class="st">"April"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_remove_all</span>( <span class="st">"</span><span class="sc">\\</span><span class="st">."</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_replace_all</span>(<span class="st">"/"</span>, <span class="fu">paste0</span>(<span class="st">" "</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_replace</span>(<span class="st">"$"</span>, <span class="fu">paste0</span>(<span class="st">" "</span>, year)) <span class="sc">|&gt;</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mdy</span>(<span class="at">quiet =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>              ),</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>      <span class="co"># standardize count column</span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">Count =</span> <span class="fu">case_when</span>(</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># creating conditions for count values to be converted</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>          <span class="co"># if its #s keep it that way as number value</span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+$"</span>) <span class="sc">~</span> <span class="fu">as.numeric</span>(Count),</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>          <span class="co"># finds average of ranges, such as 75-82</span></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+-</span><span class="sc">\\</span><span class="st">d+$"</span>) <span class="sc">~</span></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>          (<span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+"</span>)) <span class="sc">+</span></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>             <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(Count, <span class="st">"</span><span class="sc">\\</span><span class="st">d+$"</span>))) <span class="sc">/</span> <span class="dv">2</span>,</span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>          <span class="co"># for approximations (~) -- (removes symbol)</span></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^~</span><span class="sc">\\</span><span class="st">d+$"</span>) <span class="sc">~</span> </span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.numeric</span>(<span class="fu">str_remove</span>(Count, <span class="st">"~"</span>)),</span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+~$"</span>) <span class="sc">~</span></span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.numeric</span>(<span class="fu">str_remove</span>(Count, <span class="st">"~"</span>)),</span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>          <span class="co"># numbers with +, such as 176+ or 600+ FULL</span></span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">+"</span>) <span class="sc">~</span></span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+"</span>)),</span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>          <span class="co"># estimated numbers, such as 131 (est)</span></span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">(est</span><span class="sc">\\</span><span class="st">)"</span>) <span class="sc">~</span> </span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+"</span>)),</span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>          <span class="co"># removes abbreviations, such as c.279</span></span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^c</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">d+$"</span>) <span class="sc">~</span></span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(Count, <span class="st">"</span><span class="sc">\\</span><span class="st">d+"</span>)),</span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>          <span class="co"># removes the word full, such as 244 - full</span></span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">s*-</span><span class="sc">\\</span><span class="st">s*full$"</span>) <span class="sc">~</span></span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+"</span>)),</span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>        <span class="co"># if none of the conditions above are met, turn it to NA</span></span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>          <span class="co"># everything else becomes NA (blanks, ?, cancelled, etc.)</span></span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>          <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span>),</span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>      <span class="co"># stardarize location column</span></span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>      <span class="at">Location =</span> <span class="fu">case_when</span>(</span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>        <span class="sc">!</span><span class="fu">str_detect</span>(Location, <span class="st">"Bridges|Garrison|Benton"</span>) <span class="sc">~</span></span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>          Location,</span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Location,<span class="st">"Bridges Hall of Music|Bridges Hall of M|Bridges Hall of Music front patio|Little Bridges"</span>) <span class="sc">~</span></span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Little Bridges"</span>,</span>
-<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Location,<span class="st">"Bridges Auditorium"</span>) <span class="sc">~</span></span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Big Bridges"</span>,</span>
-<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Location,<span class="st">"Garrison"</span>) <span class="sc">~</span></span>
-<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Garrison Theater"</span>,</span>
-<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Location,<span class="st">"Benton Museum-Pomona College"</span>) <span class="sc">~</span></span>
-<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Benton Museum"</span>,</span>
-<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Location,<span class="st">"Smith CC/Rose Thea.|Smith Campus Center"</span>) <span class="sc">~</span></span>
-<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Smith Campus Center"</span></span>
-<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>    <span class="co"># check for time column</span></span>
-<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="st">"Time"</span> <span class="sc">%in%</span> <span class="fu">names</span>(cleaning_data)) {</span>
-<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">inherits</span>(cleaning_data<span class="sc">$</span>Time, <span class="st">"difftime"</span>)) {</span>
-<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>        cleaning_data <span class="ot">&lt;-</span> cleaning_data <span class="sc">|&gt;</span></span>
-<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">Time2 =</span> Time)</span>
-<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
-<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>      cleaning_data <span class="ot">&lt;-</span> cleaning_data <span class="sc">|&gt;</span></span>
-<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>        <span class="co"># standardize time values</span></span>
-<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">Time2 =</span> <span class="fu">parse_date_time</span>(</span>
-<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>          Time,</span>
-<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>          <span class="co"># acceptable formats: 12hr:MinSecpm, 12hrpm, 12hr pm, 12hr:Minpm</span></span>
-<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>          <span class="at">orders =</span> <span class="fu">c</span>(<span class="st">"I:M p"</span>, <span class="st">"I p"</span>, <span class="st">"Ip"</span>, <span class="st">"I:Mp"</span>),</span>
-<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>          <span class="at">quiet =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">|&gt;</span></span>
-<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">Time2 =</span> hms<span class="sc">::</span><span class="fu">as_hms</span>(Time2))</span>
-<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return clean/updated dataset of each semester</span></span>
-<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>    <span class="co"># make original Time column the same type across all files</span></span>
-<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a>  cleaning_data <span class="ot">&lt;-</span> cleaning_data <span class="sc">|&gt;</span></span>
-<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Time =</span> <span class="fu">as.character</span>(Time)) </span>
-<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>    cleaning_data</span>
-<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a><span class="co"># creates list of the filenames without full filepath</span></span>
-<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">basename</span>(all_years_files)</span>
-<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">map</span>(files, standardize_data) <span class="sc">|&gt;</span></span>
-<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creating function to make it so that all datasets can be added together cleanly</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>standardize_data <span class="ot">&lt;-</span> <span class="cf">function</span>(filename) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># take the year from the name of each file, store for later</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  year <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(filename, <span class="dv">1</span>, <span class="dv">4</span>) </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(filename)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select one specific file each round </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  cleaning_data <span class="ot">&lt;-</span> all_years_data[[filename]]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># cleaning each column up</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    cleaning_data <span class="ot">&lt;-</span> cleaning_data <span class="sc">|&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>      <span class="co"># standardize date column</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">Date =</span> </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>          <span class="fu">case_when</span>(</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            <span class="co"># if its already in the right format, run mdy</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            <span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">mdy</span>(Date)) <span class="sc">~</span> </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mdy</span>(Date, <span class="at">quiet =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(Date, <span class="st">"^</span><span class="sc">\\</span><span class="st">d{1,2}-[A-Za-z]+$"</span>) <span class="sc">~</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>              <span class="fu">paste0</span>(Date, <span class="st">"-"</span>, year) <span class="sc">|&gt;</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>              <span class="fu">dmy</span>(<span class="at">quiet =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>            <span class="co"># if its not,then remove the period, replace the slashes with spaces, and put the year a the end</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">is.na</span>(<span class="fu">mdy</span>(Date)) <span class="sc">~</span>  </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_remove</span>(Date, <span class="st">"^(Sun|Mon|Tue|Wed|Thu|Fri|Sat)+</span><span class="sc">\\</span><span class="st">.?</span><span class="sc">\\</span><span class="st">s+"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_replace</span>(<span class="st">"Aprl|Ap</span><span class="sc">\\</span><span class="st">."</span>, <span class="st">"April"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_remove_all</span>( <span class="st">"</span><span class="sc">\\</span><span class="st">."</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_replace_all</span>(<span class="st">"/"</span>, <span class="fu">paste0</span>(<span class="st">" "</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_replace</span>(<span class="st">"$"</span>, <span class="fu">paste0</span>(<span class="st">" "</span>, year)) <span class="sc">|&gt;</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mdy</span>(<span class="at">quiet =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>              ),</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>      <span class="co"># standardize count column</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">Count =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        <span class="co"># creating conditions for count values to be converted</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>          <span class="co"># if its #s keep it that way as number value</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+$"</span>) <span class="sc">~</span> <span class="fu">as.numeric</span>(Count),</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>          <span class="co"># finds average of ranges, such as 75-82</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+-</span><span class="sc">\\</span><span class="st">d+$|^</span><span class="sc">\\</span><span class="st">d+/</span><span class="sc">\\</span><span class="st">d+$"</span>) <span class="sc">~</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>          (<span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+"</span>)) <span class="sc">+</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>             <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(Count, <span class="st">"</span><span class="sc">\\</span><span class="st">d+$"</span>))) <span class="sc">/</span> <span class="dv">2</span>,</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>          <span class="co"># for approximations (~) or question marks -- (removes symbol)</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^~</span><span class="sc">\\</span><span class="st">d+$|^</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">?$"</span>) <span class="sc">~</span> </span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.numeric</span>(<span class="fu">str_remove</span>(Count, <span class="st">"~|</span><span class="sc">\\</span><span class="st">?"</span>)),</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+~$"</span>) <span class="sc">~</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.numeric</span>(<span class="fu">str_remove</span>(Count, <span class="st">"~"</span>)),</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>          <span class="co"># numbers with +, such as 176+ or 600+ FULL</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">+"</span>) <span class="sc">~</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+"</span>)),</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>          <span class="co"># estimated numbers, such as 131 (est)</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">(est</span><span class="sc">\\</span><span class="st">)"</span>) <span class="sc">~</span> </span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+"</span>)),</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>          <span class="co"># removes abbreviations, such as c.279 or c279</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^c</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">d+$|^c</span><span class="sc">\\</span><span class="st">d+$|(c</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">d+)$"</span>) <span class="sc">~</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(Count, <span class="st">"</span><span class="sc">\\</span><span class="st">d+"</span>)),</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>          <span class="co"># removes the word full, such as 244 - full or -plus</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">s*-</span><span class="sc">\\</span><span class="st">s*full$|^</span><span class="sc">\\</span><span class="st">d+-plus$|^</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">s*-</span><span class="sc">\\</span><span class="st">s*looked"</span>) <span class="sc">~</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(Count, <span class="st">"^</span><span class="sc">\\</span><span class="st">d+"</span>)),</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>        <span class="co"># if none of the conditions above are met, turn it to NA</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>          <span class="co"># everything else becomes NA (blanks, ?, cancelled, etc.)</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>          <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span>),</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>      <span class="co"># standardize location column</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>      <span class="at">Location =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Location,<span class="st">"Bridges Hall of Music|Bridges Hall of M|Bridges Hall of Music front patio|Little Bridges"</span>) <span class="sc">~</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Little Bridges"</span>,</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Location,<span class="st">"Bridges Auditorium"</span>) <span class="sc">~</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Big Bridges"</span>,</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Location,<span class="st">"Garrison"</span>) <span class="sc">~</span></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Garrison Theater"</span>,</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Location,<span class="st">"Benton Museum-Pomona College"</span>) <span class="sc">~</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Benton Museum"</span>,</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Location,<span class="st">"Smith CC/Rose Thea</span><span class="sc">\\</span><span class="st">.|Smith Campus Center"</span>) <span class="sc">~</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Smith Campus Center"</span>,</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Location,<span class="st">"Bryant"</span>) <span class="sc">~</span></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Bryant Hall"</span>,</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Location,<span class="st">"Sontag"</span>) <span class="sc">~</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Sontag Greek Theater"</span>,</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>        <span class="sc">!</span><span class="fu">str_detect</span>(Location, <span class="st">"Bridges|Garrison|Benton|Smith|Bryant|Lyman|Sontag"</span>) <span class="sc">~</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Non-5C Location"</span>,</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>        <span class="cn">TRUE</span> <span class="sc">~</span> Location</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>      <span class="co"># create event column</span></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>      <span class="at">Event_Name =</span> Event ,</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>      <span class="at">Event =</span> <span class="fu">str_to_lower</span>(Event),</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>      <span class="at">Event_Type =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"senior|sr</span><span class="sc">\\</span><span class="st">.|sr|student|stud</span><span class="sc">\\</span><span class="st">.|jr</span><span class="sc">\\</span><span class="st">.|jr|soph|soph</span><span class="sc">\\</span><span class="st">.|class recital|stud</span><span class="sc">\\</span><span class="st">.rec</span><span class="sc">\\</span><span class="st">."</span>) <span class="sc">~</span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Student Project/Recital"</span>,</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"pco &amp; pcc|orchesta &amp; choir|choir &amp; orchestra|pomona college orchestra|orchestra|pc orch|pco|pomona college choir|choir|pc choir|pcc|pomona college band|band|pc band|west african|afro-cuban|gamelan"</span>) <span class="sc">~</span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Student Ensemble"</span>,</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"ensemble|ens|ens</span><span class="sc">\\</span><span class="st">.|celliola|cornucopia|mojave|artifex|prism|trio|quartet|duo"</span>) <span class="sc">~</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Other Ensemble Performance"</span>,</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"peterson|^lee|rockwell|pelev|wright|fac</span><span class="sc">\\</span><span class="st">.|fnc|friday noon|solo"</span>) <span class="sc">~</span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Faculty Recital"</span>,</span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"guest|chirgilchin|millennium consort"</span>) <span class="sc">~</span></span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Guest Artist"</span>,</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>       <span class="fu">str_detect</span>(Event, <span class="st">"lecture|demo|demonstration"</span>) <span class="sc">~</span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Lecture/Demonstration"</span>,</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"through the gates|convocation|memorial|baccalaureate"</span>) <span class="sc">~</span></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Non-Music Ceremony"</span>,        </span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>       <span class="fu">str_detect</span>(Event, <span class="st">"glee"</span>) <span class="sc">~</span></span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Glee Club"</span>,</span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>        <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span>        </span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>        <span class="co">#str_detect(Event, "dance") ~</span></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>         <span class="co"># "Dance Performance",</span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>        <span class="co"># add student ensembles (theres 8 of them)</span></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>        <span class="co">#str_detect(Event, "pco &amp; pcc|orchesta &amp; choir|choir &amp; orchestra") ~</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>         <span class="co"># "Pomona College Orchestra &amp; Choir",</span></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>       <span class="co"># str_detect(Event, "pomona college orchestra|orchestra|pc orch|pco") ~</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>        <span class="co">#  "Pomona College Orchestra",</span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>       <span class="co"># str_detect(Event, "pomona college band|band|pc band") ~</span></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>          <span class="co">#"Pomona College Band",</span></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>       <span class="co"># str_detect(Event, "pomona college choir|choir|pc choir|pcc") ~</span></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>          <span class="co">#"Pomona College Choir",</span></span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>       <span class="co"># add quartets/trios/chorale/non-student ensembles</span></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>      <span class="co"># create day of week column </span></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>      <span class="at">Day_of_Week =</span> <span class="fu">weekdays</span>(Date),</span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>      <span class="at">Day_of_Week =</span> <span class="fu">factor</span>(Day_of_Week,</span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Monday"</span>, <span class="st">"Tuesday"</span>, <span class="st">"Wednesday"</span>, <span class="st">"Thursday"</span>,</span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Friday"</span>, <span class="st">"Saturday"</span>, <span class="st">"Sunday"</span>)),</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>      <span class="at">Genre =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"mozart|beethoven|classical|bach|baroque|chamber"</span>) <span class="sc">~</span> </span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Classical"</span>,</span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"afro|african|brasil|korea|korean|middle east|china|chinese|punjabi|mariachi"</span>) <span class="sc">~</span></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>          <span class="st">"International"</span>,</span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"jazz"</span>) <span class="sc">~</span></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Jazz"</span>,</span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"electronic|ussachevsky"</span>) <span class="sc">~</span></span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Electronic"</span>,</span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>        <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span> </span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a>      <span class="at">Instrument =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"piano|organ|lee|keys|pianist|peterson"</span>) <span class="sc">~</span></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Keys"</span>,</span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"drum|drums|percussion|perc</span><span class="sc">\\</span><span class="st">.|perc"</span>) <span class="sc">~</span></span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Percussion"</span>,</span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"guitar|bass|strings|string|celliola|cello|viola|cord a vide|corde a vide|harp|wright"</span>) <span class="sc">~</span></span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Strings"</span>,</span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"horn|horns|brass"</span>) <span class="sc">~</span></span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Brass"</span>,</span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"pco &amp; pcc|orchesta &amp; choir|choir &amp; orchestra|pco|pomona college orchestra|orchestra|pc orch|pomona college band|band|pc band|gamelan|jazz|balinese|afro cuban|afro-cuban|mariachi|merengue"</span>) <span class="sc">~</span></span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Multi"</span>,</span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"vocal|singer|singing|sing|voice|acapella|a capella|glee|choir|opera|lytle|givens"</span>) <span class="sc">~</span></span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Voice"</span>,</span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(Event, <span class="st">"electronic|ussachevsky"</span>) <span class="sc">~</span></span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Electronic"</span>,</span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a>        <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a>      <span class="at">Semester_Year =</span> <span class="fu">semester</span>(Date, <span class="at">with_year =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a>    <span class="co"># check for time column</span></span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="st">"Time"</span> <span class="sc">%in%</span> <span class="fu">names</span>(cleaning_data)) {</span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">inherits</span>(cleaning_data<span class="sc">$</span>Time, <span class="st">"difftime"</span>)) {</span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a>        cleaning_data <span class="ot">&lt;-</span> cleaning_data <span class="sc">|&gt;</span></span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">Time2 =</span> hms<span class="sc">::</span><span class="fu">as_hms</span>(Time))</span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>      cleaning_data <span class="ot">&lt;-</span> cleaning_data <span class="sc">|&gt;</span></span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>        <span class="co"># standardize time values</span></span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">Time2 =</span> <span class="fu">parse_date_time</span>(</span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a>          Time,</span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a>          <span class="co"># acceptable formats: 12hr:MinSecpm, 12hrpm, 12hr pm, 12hr:Minpm</span></span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a>          <span class="at">orders =</span> <span class="fu">c</span>(<span class="st">"I:M p"</span>, <span class="st">"I p"</span>, <span class="st">"Ip"</span>, <span class="st">"I:Mp"</span>),</span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a>          <span class="at">quiet =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">|&gt;</span></span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">Time2 =</span> hms<span class="sc">::</span><span class="fu">as_hms</span>(Time2))</span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return clean/updated dataset of each semester</span></span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a>    <span class="co"># make original Time column the same type across all files</span></span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a>  cleaning_data <span class="ot">&lt;-</span> cleaning_data <span class="sc">|&gt;</span></span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Time =</span> <span class="fu">as.character</span>(Time))</span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a>    cleaning_data</span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a><span class="co"># creates list of the filenames without full filepath</span></span>
+<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">basename</span>(all_years_files)</span>
+<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">map</span>(files, standardize_data) <span class="sc">|&gt;</span></span>
+<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2008Fall.csv"</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -972,7 +496,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -983,7 +507,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 5 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.</code></pre>
@@ -994,7 +518,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -1005,7 +529,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 5 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.</code></pre>
@@ -1016,7 +540,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -1027,7 +551,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -1038,7 +562,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 5 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.</code></pre>
@@ -1049,7 +573,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -1060,7 +584,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -1071,7 +595,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 5 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.</code></pre>
@@ -1082,7 +606,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -1093,7 +617,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -1104,7 +628,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -1115,7 +639,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -1126,7 +650,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -1143,7 +667,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.
@@ -1158,7 +682,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -1169,7 +693,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -1180,7 +704,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 5 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.</code></pre>
@@ -1191,7 +715,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 7 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.</code></pre>
@@ -1202,7 +726,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 5 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.</code></pre>
@@ -1213,7 +737,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 5 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.</code></pre>
@@ -1224,7 +748,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 5 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.</code></pre>
@@ -1235,7 +759,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 5 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.</code></pre>
@@ -1246,7 +770,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 5 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.</code></pre>
@@ -1257,7 +781,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 5 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.</code></pre>
@@ -1266,12 +790,12 @@ Caused by warning:
 <pre><code>[1] "2023Fall.csv"</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: There were 5 warnings in `mutate()`.
+<pre><code>Warning: There were 4 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
-ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.</code></pre>
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 3 remaining warnings.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2023Spring.csv"</code></pre>
@@ -1279,7 +803,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 5 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.
@@ -1292,12 +816,12 @@ Caused by warning:
 <pre><code>[1] "2024Fall.csv"</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: There were 5 warnings in `mutate()`.
+<pre><code>Warning: There were 4 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
-ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.</code></pre>
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 3 remaining warnings.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2024Spring.csv"</code></pre>
@@ -1305,7 +829,7 @@ Caused by warning:
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 5 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 4 remaining warnings.
@@ -1315,497 +839,386 @@ Caused by warning:
 !  1 failed to parse.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
+<pre><code>[1] "2025Fall.csv"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 2 warnings in `mutate()`.
+The first warning was:
+ℹ In argument: `Date = case_when(...)`.
+Caused by warning:
+! All formats failed to parse. No formats found.
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 1 remaining warning.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] "2025Spring.csv"</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 2 warnings in `mutate()`.
 The first warning was:
-ℹ In argument: `Date2 = case_when(...)`.
+ℹ In argument: `Date = case_when(...)`.
 Caused by warning:
 ! All formats failed to parse. No formats found.
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 1 remaining warning.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">|&gt;</span></span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(Date2)) <span class="sc">|&gt;</span></span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Date2, Date) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 0 × 2
-# ℹ 2 variables: Date2 &lt;date&gt;, Date &lt;chr&gt;</code></pre>
+<pre><code>[1] "2026Spring.csv"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>temp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,000 × 9
-   Date     Event           Count Notes Location Date2      Time  Time2 Students
-   &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;date&gt;     &lt;chr&gt; &lt;tim&gt;    &lt;dbl&gt;
- 1 Sept. 21 Celliola        150   &lt;NA&gt;  Little … 2008-09-21 &lt;NA&gt;     NA       NA
- 2 Sept. 24 Francisco Agua…  78.5 Flui… Lyman H… 2008-09-24 &lt;NA&gt;     NA       NA
- 3 Sept. 28 Davitt Moroney  124   &lt;NA&gt;  Little … 2008-09-28 &lt;NA&gt;     NA       NA
- 4 Oct. 4   Millennium Con… 250   &lt;NA&gt;  Little … 2008-10-04 &lt;NA&gt;     NA       NA
- 5 Oct. 11  Pomona College… 245   &lt;NA&gt;  Little … 2008-10-11 &lt;NA&gt;     NA       NA
- 6 Oct. 12  Pomona College… 282   &lt;NA&gt;  Little … 2008-10-12 &lt;NA&gt;     NA       NA
- 7 Oct. 25  Pelev/Ashcraft  130   &lt;NA&gt;  Little … 2008-10-25 &lt;NA&gt;     NA       NA
- 8 Oct. 29  Student Recital  80   Flui… Lyman H… 2008-10-29 &lt;NA&gt;     NA       NA
- 9 Nov. 2   William Peters… 120   by G… Little … 2008-11-02 &lt;NA&gt;     NA       NA
-10 Nov. 3   Amir ElSaffar …  15   Mond… Lyman H… 2008-11-03 &lt;NA&gt;     NA       NA
-# ℹ 990 more rows</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 2 warnings in `mutate()`.
+The first warning was:
+ℹ In argument: `Date = case_when(...)`.
+Caused by warning:
+! All formats failed to parse. No formats found.
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 1 remaining warning.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(temp<span class="sc">$</span>Event)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  [1] "Celliola"                                        
-  [2] "Francisco Aguabella"                             
-  [3] "Davitt Moroney"                                  
-  [4] "Millennium Consort Singers"                      
-  [5] "Pomona College Orchestra"                        
-  [6] "Pelev/Ashcraft"                                  
-  [7] "Student Recital"                                 
-  [8] "William Peterson"                                
-  [9] "Amir ElSaffar Lecture/Demo"                      
- [10] "Wright &amp; Moss"                                   
- [11] "Gomez/Preston Jr./Sr. Recital"                   
- [12] "Viver Brasil Demonstration/Lect"                 
- [13] "Pomona College Band"                             
- [14] "Pomona College Afro-Cuban Ensemble"              
- [15] "Pomona College Choir"                            
- [16] "Giri Kusuma"                                     
- [17] "G. Lee"                                          
- [18] "Orchestra"                                       
- [19] "Baroque Recital"                                 
- [20] "EnsembleGREEN"                                   
- [21] "Sanders &amp; Friends"                               
- [22] "PC Band"                                         
- [23] "Millennium Consort S."                           
- [24] "Cord a vide"                                     
- [25] "Afro-Cuban"                                      
- [26] "Choir"                                           
- [27] "Gamelan"                                         
- [28] "Friday Noon Concert"                             
- [29] "Lee Recital"                                     
- [30] "Bradford and Mo'Tet"                             
- [31] "Korean Trio"                                     
- [32] "Ussachevsky"                                     
- [33] "20th &amp; 21st C. Chamber Music"                    
- [34] "Kenny Endo Lect/Demo"                            
- [35] "Ranz &amp; Friends Chamber Music"                    
- [36] "Jr. Recital / Welds &amp; Guitar Quartet"            
- [37] "Wm. Peterson, Bach"                              
- [38] "A. Troitsky Lecture"                             
- [39] "Berman, piano"                                   
- [40] "Lytle &amp; Lee, 'Women's Voices'"                   
- [41] "Senior Recital / Dietterich"                     
- [42] "Sr. Recital / G. Chen"                           
- [43] "Albert McNeil Jubilee Singers"                   
- [44] "Mojave Trio"                                     
- [45] "Sr. Recital / Heath"                             
- [46] "Sr. Recital / Nuchi"                             
- [47] "Yoon-Chan Kim (Jr. Recital)"                     
- [48] "Sr. Recital / Randall-Myers"                     
- [49] "PC Choir &amp; Orchestra"                            
- [50] "Sr. Recital / Silva"                             
- [51] "Afro-Cuban Ensemble"                             
- [52] "Pomona College Glee Club"                        
- [53] "Memorial Convocation"                            
- [54] "Taiko"                                           
- [55] "Minofest:"                                       
- [56] "Ph iBeta Kappa Installation"                     
- [57] "D. Alexander Memorial"                           
- [58] "Cornucopia"                                      
- [59] "Pelev, Ko, Ashcraft"                             
- [60] "PC Orch w/J. Sanders"                            
- [61] "Anonymous 4"                                     
- [62] "Hogle Brown, Graff, Kirchner"                    
- [63] "Beck, Lee, Kohn"                                 
- [64] "√áudamani L/Demo"                                
- [65] "Bacon Jr. Recital"                               
- [66] "Parmentier"                                      
- [67] "Los Pleneros"                                    
- [68] "Wright/Moss"                                     
- [69] "Afro-Cuban Drumming Ens"                         
- [70] "PC Choir"                                        
- [71] "PC Orchestra"                                    
- [72] "PC Gamelan"                                      
- [73] "Bluegrass"                                       
- [74] "Kohn &amp; Kohn"                                     
- [75] "Ming Tsu"                                        
- [76] "Todor Pelev"                                     
- [77] "Lytle &amp; Lee"                                     
- [78] "Lebow &amp; Blankenburg"                             
- [79] "Organ - Peterson"                                
- [80] "Ognibene &amp;"                                      
- [81] "Senior - Kim"                                    
- [82] "Los Pleneros de la 21"                           
- [83] "Senior - Welds"                                  
- [84] "Senior - Preston"                                
- [85] "Orch &amp; Choir"                                    
- [86] "Jazz Ens."                                       
- [87] "Glee Club"                                       
- [88] "Band"                                            
- [89] "Memorial Service"                                
- [90] "Hampson"                                         
- [91] "Peterson Lec/Rec"                                
- [92] "Pelev &amp; Lebow"                                   
- [93] "Lee - solo rec."                                 
- [94] "Hammers &amp; Sticks  Piano &amp; Percussion"            
- [95] "Chirgilchin"                                     
- [96] "Nitzan Sr. Recital"                              
- [97] "Mbria"                                           
- [98] "PCC"                                             
- [99] "Ussachevsky - Fri"                               
-[100] "Ussachevsky - Sat Lecture"                       
-[101] "Ussachevsky - Sat"                               
-[102] "Chinyakara"                                      
-[103] "Schoenberg lecture"                              
-[104] "Blankenburg/Formalist Stg Qtet"                  
-[105] "Kohn + Kohn"                                     
-[106] "East Meets West - Lee"                           
-[107] "Sayles Sr. Recital"                              
-[108] "Peterson"                                        
-[109] "Nitzan &amp; Henderson Jr. Recital"                  
-[110] "McIntosh &amp; Blankenburg"                          
-[111] "Humphrey Sr. Recital"                            
-[112] "LA Opera Young Artists"                          
-[113] "Verdi Requiem"                                   
-[114] "Luo Sr. Recital"                                 
-[115] "Cello, Piano &amp; Marimba"                          
-[116] "Nguyen / Prunty Sr. Recital"                     
-[117] "Cello Ensemble"                                  
-[118] "Mbira Ensemble"                                  
-[119] "Lee - Keyboard Kal"                              
-[120] "Kleinecke-Boyer"                                 
-[121] "Calambache"                                      
-[122] "Benjamin Memorial"                               
-[123] "PCO"                                             
-[124] "Cage-O-Rama"                                     
-[125] "Memorial"                                        
-[126] "Stud. Recital"                                   
-[127] "Kallay &amp; Inoo"                                   
-[128] "Third Coast Perc."                               
-[129] "Katie Bent"                                      
-[130] "Jazz"                                            
-[131] "Christoph Bull"                                  
-[132] "MCS &amp; PCC"                                       
-[133] "Trans-Atlantic"                                  
-[134] "Orchestra &amp; Sheu"                                
-[135] "Messiaen &amp; Crockett (lee)"                       
-[136] "The Virginia Glee Club"                          
-[137] "Cusito"                                          
-[138] "Annabell Guaita"                                 
-[139] "C. Bacon Sr. Recital"                            
-[140] "Gwendolyn Lytle"                                 
-[141] "Musekiwa Chingodza"                              
-[142] "B. Nitzan Sr. Recital"                           
-[143] "R. Sheu, Soph Recital"                           
-[144] "S. Jespersen, Sr. Recital"                       
-[145] "G. Friedman Recital"                             
-[146] "C. Henderson, Sr. Recital"                       
-[147] "Choir &amp; Orch"                                    
-[148] "Mbira Ens"                                       
-[149] "Jazz Tribute"                                    
-[150] "Memorial Conv"                                   
-[151] "MicroFest"                                       
-[152] "Baccalaureate"                                   
-[153] "Phi Beta Kappa"                                  
-[154] "PCGC Concert"                                    
-[155] "Lee - solo"                                      
-[156] "D. Cleveland, guest organist"                    
-[157] "Garth Newel Quartet"                             
-[158] "Orchestra w/G. Lytle"                            
-[159] "Baroque Masters Kim &amp; Lee"                       
-[160] "Middle East Ensemble"                            
-[161] "Jazz Ens"                                        
-[162] "Afro-Cuban Drumming"                             
-[163] "Sea Chanty"                                      
-[164] "Ussachevsky L/D"                                 
-[165] "Pelev"                                           
-[166] "Eclipse Quartet"                                 
-[167] "PC Talent show"                                  
-[168] "Kohn Music"                                      
-[169] "Latino/Chic. Conv"                               
-[170] "Evarkiou-Kaku Jr."                               
-[171] "Lee Quartet"                                     
-[172] "Appleton, piano"                                 
-[173] "Bent &amp; De Winkle"                                
-[174] "Bradford and the Mo'Tet"                         
-[175] "Sheu/Chang"                                      
-[176] "Student, Generic Rec."                           
-[177] "CalArts West African"                            
-[178] "Lytle &amp; Friends"                                 
-[179] "Student/Music of Appleton"                       
-[180] "Hannigan"                                        
-[181] "Mentor Recital"                                  
-[182] "Orch/Choir"                                      
-[183] "LA Guitar Quartet"                               
-[184] "Bew B'ak'tun"                                    
-[185] "Beethoven Cello Sonatas I"                       
-[186] "Looking For Answers - T. Flaherty"               
-[187] "Beethoven Cello Sonatas 2"                       
-[188] "Spring Thunder Chinese Ens"                      
-[189] "J. Austenfeld, Sr Recital"                       
-[190] "Wright / Moss"                                   
-[191] "Piffaro"                                         
-[192] "van Zyl - guest pianist"                         
-[193] "Chatham Baroque"                                 
-[194] "Thornblade &amp; Ray"                                
-[195] "Convocation"                                     
-[196] "Ussachevsky-lecture/demo"                        
-[197] "Ussachevsky-concert"                             
-[198] "Organist Alan Lewis"                             
-[199] "Guitar Extravaganza"                             
-[200] "Orchestra - Concerto winner"                     
-[201] "Blankenburg/Cook"                                
-[202] "Roger Sheu, Sr. Recital"                         
-[203] "Jazz Ensemble"                                   
-[204] "Copland - Seymour concert"                       
-[205] "Appleton Sr. Recital"                            
-[206] "Chang Sr. Recital"                               
-[207] "Monson Pre-concert lecture"                      
-[208] "Performing the Sacred"                           
-[209] "Choir/Orchestra - Berlioz Req."                  
-[210] "Evarkiou-Kaku Sr. Recital"                       
-[211] "Browne/Wayment-Steele Jr. Recital"               
-[212] "Gwendolyn Lytle w/Rockwell, Blankenburg &amp; Cramer"
-[213] "Sea Chanty Ens."                                 
-[214] "Music of RC Seeger"                              
-[215] "Chamber Music Extrava"                           
-[216] "Chalifour"                                       
-[217] "Beethoven Sonatas/Lee"                           
-[218] "Senior Recital - Ryan Luo"                       
-[219] "Trio Fugu"                                       
-[220] "KRONOS"                                          
-[221] "LA Chamber/Bach"                                 
-[222] "Ussachevsky Concert"                             
-[223] "Pomonapalooza"                                   
-[224] "Genevieve Lee Recital"                           
-[225] "Pomona Composers"                                
-[226] "Burke Sr. Recital"                               
-[227] "Zhang Sr. Recital"                               
-[228] "Gamelan Sekar Jaya"                              
-[229] "White Sr. Recital"                               
-[230] "Chong Jr. Recital"                               
-[231] "Cole/Wayment-Steele Jr/Sr recital"               
-[232] "Peterson Recital"                                
-[233] "Admissions Day"                                  
-[234] "Choir/Orchestra Concert"                         
-[235] "Mentors Recital"                                 
-[236] "Akropolist MC"                                   
-[237] "Pelev-Horn Trios"                                
-[238] "Trios Lykos"                                     
-[239] "Guam/R. Luo Jr. Recital"                         
-[240] "Glee Club Concert"                               
-[241] "Band Concert"                                    
-[242] "Alumni Memorial Service"                         
-[243] "Gamelan Concert"                                 
-[244] "First Yr Book"                                   
-[245] "Brentano"                                        
-[246] "Chamber Music Ext"                               
-[247] "Lee Children's Concert"                          
-[248] "Kwok Memorial"                                   
-[249] "Merengue"                                        
-[250] "Kohn at 90"                                      
-[251] "Kallay"                                          
-[252] "Jung Trio"                                       
-[253] "Cascade of Pianos"                               
-[254] "Modern Trio Sonata"                              
-[255] "West African"                                    
-[256] "Clark Memorial"                                  
-[257] "Lee: Debussy, Kohn &amp; Ung"                        
-[258] "Alumnipalooza"                                   
-[259] "Plucked String"                                  
-[260] "LA Harpette"                                     
-[261] "Alex Woods, Soph Recital"                        
-[262] "Alex Chong Sr. Recital"                          
-[263] "Lytle and Lee Recital"                           
-[264] "Mande Music L/D"                                 
-[265] "Curtis Wright L/D"                               
-[266] "Li &amp; Lee Sr. Recital"                            
-[267] "Lee &amp; Kallay"                                    
-[268] "Zabava!"                                         
-[269] "Piano Class Recital"                             
-[270] "Millennium Consort"                              
-[271] "Walwyn Lecture"                                  
-[272] "Book lecture"                                    
-[273] "Jung &amp; Tsai"                                     
-[274] "M√∂ller &amp; Fraticelli Guitar Duo"                 
-[275] "N. Ford \"ORFEUS\""                              
-[276] "Lee Solo recital"                                
-[277] "Memorial - Bell"                                 
-[278] "Inaugural Kick-off Concert"                      
-[279] "Bovyer &amp; Lee-Brahms"                             
-[280] "Taiko Drumming (concert)"                        
-[281] "Doc: \"‚Ä¶untouchable drum\""                    
-[282] "Sherinian Lecture"                               
-[283] "Wood's Sr. Recital"                              
-[284] "Berman"                                          
-[285] "Ussachevsky 1"                                   
-[286] "Ussachevsky Lect/Demo"                           
-[287] "Ussachevsky 2"                                   
-[288] "Peterson, organ"                                 
-[289] "Lee &amp; Bahn"                                      
-[290] "Ming &amp; Friends"                                  
-[291] "Chamber Orchestra"                               
-[292] "Eclipse +"                                       
-[293] "Brass Extravaganza"                              
-[294] "Jazz Ens. &amp; Combos"                              
-[295] "Piano Trio (Mojave)"                             
-[296] "Givens"                                          
-[297] "Sun, Jr. Recital"                                
-[298] "Woods, Jr. Recital"                              
-[299] "PCO &amp; PCC"                                       
-[300] "Evan &amp; Eric, Jr. Recital"                        
-[301] "Glee"                                            
-[302] "Jazz w/guest"                                    
-[303] "Glee Tour"                                       
-[304] "M. Chingodza"                                    
-[305] "Chen - Improv Wkshop"                            
-[306] "Cage \"Electronic Music‚Ä¶\""                    
-[307] "Chamber Music Extrav"                            
-[308] "FNC-Lee&amp;Parkins"                                 
-[309] "London Handel Players"                           
-[310] "Baroque Dance L/D"                               
-[311] "FNC-Theoboux&amp;K. Lee"                             
-[312] "Bernstein"                                       
-[313] "FNC-Cornucopia"                                  
-[314] "Acs/Dubon Jr Recital"                            
-[315] "Brandes/Moe"                                     
-[316] "Givens ‚Äì candidate concert"                    
-[317] "Fac. Recital-Family Wkend"                       
-[318] "Gamelan Cudamani_MC"                             
-[319] "Mariachi"                                        
-[320] "Fac. Chamber Recital"                            
-[321] "Sr. Recital-Brether/Wolbert"                     
-[322] "Sr. Recital: Saylor/Curtis"                      
-[323] "Sr. Recital-Curtis/Ponomareva"                   
-[324] "Sr. Recital: Melling/Sano/Taylor/Sun"            
-[325] "Piano Ensemble"                                  
-[326] "Sr. Recital-Cooper/Meadors/Iliakis"              
-[327] "Jeng and Dai (violin)"                           
-[328] "Pakaraguian KE"                                  
-[329] "Althea Waites"                                   
-[330] "Dubon Sr. Recital"                               
-[331] "Vox Luminis"                                     
-[332] "Lee/Brightwork"                                  
-[333] "Kleinecke"                                       
-[334] "Sr. Recital - Betanzos"                          
-[335] "Kohn/Rudich"                                     
-[336] "Sr. Recital - Brown"                             
-[337] "Mongolian Singer (Hargana)"                      
-[338] "Fac. Recital-Givens-Family Wkend"                
-[339] "LA Harptette"                                    
-[340] "S. Betanzos,  Jr Rec"                            
-[341] "Rostam"                                          
-[342] "J. Taylor Sr. Rec/lect"                          
-[343] "Brandes &amp; Moe"                                   
-[344] "M. Cook Jr. Rec"                                 
-[345] "Crumb/Lee"                                       
-[346] "K Guo, Sr. Rec."                                 
-[347] "Blankenburg/Menzies"                             
-[348] "Music From China"                                
-[349] "Chamber Mus. Stud.Rec."                          
-[350] "Glee Sat. pre-com. program"                      
-[351] "Glee Tour-NYC"                                   
-[352] "Glee Tour-Wayne"                                 
-[353] "Glee Tour-Philadelphia"                          
-[354] "Glee Tour-DC"                                    
-[355] "Glee Tour-Williamsburg"                          
-[356] "Glee Tour-Springfield"                           
-[357] "Lee"                                             
-[358] "FNC: Young &amp; Chang"                              
-[359] "PRISM"                                           
-[360] "Punjabi"                                         
-[361] "Z. Freeman Sr. Rec"                              
-[362] "Plucked on Bach-J. Rockwell"                     
-[363] "Genevieve Lee"                                   
-[364] "Sr. Lecture-Recital - S. Smith"                  
-[365] "F√™te musicale"                                  
-[366] "Sr. Recital - J. Szulc-Donnell"                  
-[367] "Sr. Recital - A Zhao"                            
-[368] "Sr. Recital - Sipowicz"                          
-[369] "Sr. Lecture-Recital - K. Naehu-Rmos"             
-[370] "Manzanita"                                       
-[371] "Lee &amp; Friends"                                   
-[372] "Adean Ayamara Band"                              
-[373] "Givens &amp; Cheng"                                  
-[374] "Ciaramella"                                      
-[375] "Hoseth-Sr. Project"                              
-[376] "Larget-Caplan"                                   
-[377] "Cornucopia - FNC"                                
-[378] "Sr. Recital - K. Burgstahler"                    
-[379] "Sr. Recital - A. Zhao"                           
-[380] "Sr. Recital - S. Uehara"                         
-[381] "Sr. Recital - I. Shapiro"                        
-[382] "Sr. Proj. - E Tallman &amp; D. Jin"                  
-[383] "Student String Qtet (Honey)"                     
-[384] "Glee Tour- Santa Barbara"                        
-[385] "Glee Tour- Benton Museum"                        
-[386] "Glee Tour- Palm Desert"                          
-[387] "Glee Tour- Getty"                                
-[388] "Lee Beethoven IV (Chalifour)"                    
-[389] "Lee &amp; deMaine"                                   
-[390] "Artifex Consort"                                 
-[391] "Lee Beethoven V (Gearhart)"                      
-[392] "Quartet for the End of Time"                     
-[393] "Young &amp; Chang - FNC"                             
-[394] "Tranquada Memoria"                               
-[395] "Wm. C. Nyaho"                                    
-[396] "S. Wang Sr. Proj"                                
-[397] "M. Givens"                                       
-[398] "M. Goodwin Sr Proj"                              
-[399] "Thornblade/Lee"                                  
-[400] "Wm Peterson &amp; C Robertson"                       
-[401] "R. Falzon Sr Proj"                               
-[402] "J. Rockwell"                                     
-[403] "Lee Studio Recital"                              
-[404] "Orchestra &amp; Choir"                               
-[405] "UCSB Middle East Ens."                           
-[406] "K. Supov√©"                                      
-[407] "Opening Convocation"                             
-[408] "Two Pianos"                                      
-[409] "Celliola &amp; Friends"                              
-[410] "Rachmaninoff Piano Duos"                         
-[411] "FNC: Cornucopia"                                 
-[412] "Wm Peterson Organ Concert"                       
-[413] "FNC: Guastavino and Lutoslawski"                 
-[414] "Artemesia"                                       
-[415] "FNC: Mozart and Brubeck"                         
-[416] "W. Zhao Organ Concert"                           
-[417] "Genevieve Lee Solo"                              
-[418] "Meredith Monk"                                   
-[419] "Musical Journeys"                                
-[420] "Crumb"                                           
-[421] "Ray-Kallay duo"                                  
-[422] "Opera Prima"                                     
-[423] "Lee Beethoven VI (Bahn)"                         
-[424] "Gamelan Merdu Kumala"                            
-[425] "Artifex &amp; PRISM"                                 
-[426] "Wm Peterson"                                     
-[427] "M. Thacher-Sr. Project"                          
-[428] "Piano Ensemble/Lee Studio"                       
-[429] "E. Lee-Sr. Recital"                              
-[430] "Manzanita Quartet"                               
-[431] "Alumni Pianos"                                   
-[432] "Biber Sonatas"                                   
-[433] "Levinson/Fadial"                                 
-[434] "Rubab &amp; Tabla"                                   
-[435] "Senior Sounds"                                   
-[436] "Brightwork/Hex"                                  
-[437] "Dai/Jung"                                        
-[438] "Senior Recital (Jesien)"                         
-[439] "Choir/Orchestra"                                 
-[440] "Senior Recital (Kokonas)"                        
-[441] "Through the Gates"                               
-[442] "Music &amp; Art / Glee Club"                         </code></pre>
+<pre><code>[1] "glee.csv"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 4 warnings in `mutate()`.
+The first warning was:
+ℹ In argument: `Date = case_when(...)`.
+Caused by warning:
+! All formats failed to parse. No formats found.
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 3 remaining warnings.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `Time2 = parse_date_time(...)`.
+Caused by warning:
+!  5 failed to parse.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> temp <span class="sc">|&gt;</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Date, Semester_Year, Time2, Location, Event_Name, Count, Event_Type, Genre, Instrument, Day_of_Week)</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">|&gt;</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Genre <span class="sc">==</span> <span class="st">"Other"</span>, Instrument <span class="sc">==</span> <span class="st">"Other"</span>, Event_Type <span class="sc">!=</span> <span class="st">"Student Project/Recital"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 230 × 10
+   Date       Semester_Year Time2  Location    Event_Name Count Event_Type Genre
+   &lt;date&gt;             &lt;dbl&gt; &lt;time&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;
+ 1 2026-05-13         2026.    NA  Little Bri… Internati…   287 Other      Other
+ 2 2026-05-03         2026.    NA  Little Bri… Alumni Me…    35 Non-Music… Other
+ 3 2026-04-25         2026. 20:00  Little Bri… Ligeti's …    79 Other      Other
+ 4 2026-03-29         2026. 15:00  Lyman Hall  Politics …   145 Other      Other
+ 5 2026-03-28         2026.    NA  Little Bri… Karl John…   132 Non-Music… Other
+ 6 2026-03-27         2026. 20:00  Little Bri… Artifex C…   172 Other Ens… Other
+ 7 2026-02-22         2026. 15:00  Little Bri… Fete Musi…   129 Other      Other
+ 8 2025-11-21         2025. 12:15  Lyman Hall  FNC: Con …   118 Faculty R… Other
+ 9 2025-11-01         2025. 15:00  Little Bri… Karl Kohn…   194 Other      Other
+10 2025-10-25         2025. 20:00  Little Bri… Lori Lait…    86 Other      Other
+# ℹ 220 more rows
+# ℹ 2 more variables: Instrument &lt;chr&gt;, Day_of_Week &lt;fct&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average Attendees By Event Type Per Year</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">|&gt;</span></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Count), <span class="sc">!</span><span class="fu">is.na</span>(Date)) <span class="sc">|&gt;</span></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">year</span>(Date)) <span class="sc">|&gt;</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Semester_Year, Event_Type) <span class="sc">|&gt;</span></span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_count =</span> <span class="fu">mean</span>(Count), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Semester_Year, <span class="at">y =</span> avg_count, <span class="at">color =</span> Event_Type)) <span class="sc">+</span></span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Semester"</span>,</span>
+<span id="cb78-11"><a href="#cb78-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Count"</span>, </span>
+<span id="cb78-12"><a href="#cb78-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Attendees by Event Type per Year"</span></span>
+<span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
+<span id="cb78-14"><a href="#cb78-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb78-15"><a href="#cb78-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in RColorBrewer::brewer.pal(n, pal): n too large, allowed maximum for palette Dark2 is 8
+Returning the palette you asked for with that many colors</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 34 rows containing missing values or values outside the scale range
+(`geom_line()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MUSDSPROJECT_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"type.png"</span>, <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">8</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in RColorBrewer::brewer.pal(n, pal): n too large, allowed maximum for palette Dark2 is 8
+Returning the palette you asked for with that many colors
+Warning in RColorBrewer::brewer.pal(n, pal): Removed 34 rows containing missing values or values outside the scale range
+(`geom_line()`).</code></pre>
 </div>
 </div>
 <section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section">2011-2012</h3>
-</section>
-<section id="section-1" class="level3">
-<h3 class="anchored" data-anchor-id="section-1">2012-2013</h3>
-</section>
-<section id="section-2" class="level3">
-<h3 class="anchored" data-anchor-id="section-2">2013-2014</h3>
-</section>
-<section id="section-3" class="level3">
-<h3 class="anchored" data-anchor-id="section-3">2011-2012</h3>
+<h3 class="anchored" data-anchor-id="section">2012-2013</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average Attendees By Genre Per Year</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">|&gt;</span></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,081 × 10
+   Date       Semester_Year Time2  Location    Event_Name Count Event_Type Genre
+   &lt;date&gt;             &lt;dbl&gt; &lt;time&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;
+ 1 2026-05-28         2026. 17:00  Non-5C Loc… Glee Tour     NA Glee Club  Other
+ 2 2026-05-27         2026. 21:00  Non-5C Loc… Glee Tour    125 Glee Club  Other
+ 3 2026-05-25         2026. 21:00  Non-5C Loc… Glee Tour     95 Glee Club  Other
+ 4 2026-05-24         2026. 21:00  Non-5C Loc… Glee Tour     75 Glee Club  Other
+ 5 2026-05-22         2026.    NA  Non-5C Loc… Glee Tour     NA Glee Club  Other
+ 6 2026-05-21         2026. 19:00  Non-5C Loc… Glee Tour    100 Glee Club  Other
+ 7 2026-05-19         2026. 21:00  Non-5C Loc… Glee Tour     50 Glee Club  Other
+ 8 2026-05-16         2026. 20:00  Little Bri… Music &amp; A…    88 Glee Club  Other
+ 9 2026-05-13         2026.    NA  Little Bri… Internati…   287 Other      Other
+10 2026-05-07         2026. 19:00  Lyman Hall  Student R…    45 Student P… Other
+# ℹ 1,071 more rows
+# ℹ 2 more variables: Instrument &lt;chr&gt;, Day_of_Week &lt;fct&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">|&gt;</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Count), <span class="sc">!</span><span class="fu">is.na</span>(Date)) <span class="sc">|&gt;</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Semester_Year, Genre) <span class="sc">|&gt;</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_count =</span> <span class="fu">mean</span>(Count), <span class="at">n_events =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Semester_Year, <span class="at">y =</span> avg_count, <span class="at">color =</span> Genre)) <span class="sc">+</span></span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> n_events)) <span class="sc">+</span></span>
+<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb86-10"><a href="#cb86-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Count"</span>, </span>
+<span id="cb86-11"><a href="#cb86-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Count by Genre per Year"</span></span>
+<span id="cb86-12"><a href="#cb86-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb86-13"><a href="#cb86-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MUSDSPROJECT_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"genre.png"</span>, <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">8</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average Attendees Per Year</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">|&gt;</span></span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Count), <span class="sc">!</span><span class="fu">is.na</span>(Date), Location <span class="sc">!=</span> <span class="st">"Non-5C Location"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Semester_Year) <span class="sc">|&gt;</span></span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_count =</span> <span class="fu">mean</span>(Count), <span class="at">n_events =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Semester_Year, <span class="at">y =</span> avg_count)) <span class="sc">+</span></span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> n_events)) <span class="sc">+</span></span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Count"</span>,</span>
+<span id="cb88-14"><a href="#cb88-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Count per Year"</span></span>
+<span id="cb88-15"><a href="#cb88-15" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MUSDSPROJECT_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">|&gt;</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Date), <span class="sc">!</span><span class="fu">is.na</span>(Count), Location <span class="sc">!=</span> <span class="st">"Non-5C Location"</span>, <span class="fu">year</span>(Date) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2017</span>,<span class="dv">2018</span>,<span class="dv">2019</span>,<span class="dv">2020</span>,<span class="dv">2021</span>,<span class="dv">2022</span>,<span class="dv">2023</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Semester_Year) <span class="sc">|&gt;</span></span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_count =</span> <span class="fu">mean</span>(Count), <span class="at">n_events =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Semester_Year, <span class="at">y =</span> avg_count)) <span class="sc">+</span></span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> n_events)) <span class="sc">+</span></span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Count"</span>,</span>
+<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Count leading up to and following COVID Lockdown (5C Locations only)"</span></span>
+<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MUSDSPROJECT_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"covid.png"</span>, <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">8</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of Events By Location</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">|&gt;</span></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Location)) <span class="sc">|&gt;</span></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Location) <span class="sc">|&gt;</span></span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_here =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Location, <span class="at">y =</span> num_here, <span class="at">fill =</span> Location)) <span class="sc">+</span></span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Location"</span>,</span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Events"</span>,</span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Number of Events by Location"</span></span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in RColorBrewer::brewer.pal(n, pal): n too large, allowed maximum for palette Dark2 is 8
+Returning the palette you asked for with that many colors</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MUSDSPROJECT_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of Events by Day of Week</span></span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">|&gt;</span></span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Day_of_Week)) <span class="sc">|&gt;</span></span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Day_of_Week) <span class="sc">|&gt;</span></span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_this_day =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day_of_Week, <span class="at">y =</span> num_this_day, <span class="at">fill =</span> Day_of_Week)) <span class="sc">+</span></span>
+<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Day"</span>,</span>
+<span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Events"</span>,</span>
+<span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Number of Events by Weekday"</span></span>
+<span id="cb96-12"><a href="#cb96-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb96-13"><a href="#cb96-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MUSDSPROJECT_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average Attendance by Weekday</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">|&gt;</span></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Day_of_Week), <span class="sc">!</span><span class="fu">is.na</span>(Count)) <span class="sc">|&gt;</span></span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Day_of_Week) <span class="sc">|&gt;</span></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_count =</span> <span class="fu">mean</span>(Count)) <span class="sc">|&gt;</span></span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day_of_Week, <span class="at">y =</span> avg_count, <span class="at">fill =</span> Day_of_Week)) <span class="sc">+</span></span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Day"</span>,</span>
+<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Count"</span>,</span>
+<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Number of Attendees by Weekday"</span></span>
+<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MUSDSPROJECT_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average Attendees for Each Day over Years</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">|&gt;</span></span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Day_of_Week), <span class="sc">!</span><span class="fu">is.na</span>(Count)) <span class="sc">|&gt;</span></span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Semester_Year, Day_of_Week) <span class="sc">|&gt;</span></span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_count_per_semester =</span> <span class="fu">mean</span>(Count)) <span class="sc">|&gt;</span></span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Semester_Year, <span class="at">y =</span> avg_count_per_semester, <span class="at">color =</span> Day_of_Week)) <span class="sc">+</span></span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Count"</span>,</span>
+<span id="cb98-11"><a href="#cb98-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Number of Attendees by Weekday over Years"</span></span>
+<span id="cb98-12"><a href="#cb98-12" aria-hidden="true" tabindex="-1"></a>  )  <span class="sc">+</span></span>
+<span id="cb98-13"><a href="#cb98-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Semester_Year'. You can override using the
+`.groups` argument.
+`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MUSDSPROJECT_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average Attendees for Each Genre over Years</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">|&gt;</span></span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Location), <span class="sc">!</span><span class="fu">is.na</span>(Count)) <span class="sc">|&gt;</span></span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Semester_Year, Genre) <span class="sc">|&gt;</span></span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_count_per_sem =</span> <span class="fu">mean</span>(Count)) <span class="sc">|&gt;</span></span>
+<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Semester_Year, <span class="at">y =</span> avg_count_per_sem, <span class="at">color =</span> Genre)) <span class="sc">+</span></span>
+<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb100-9"><a href="#cb100-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb100-10"><a href="#cb100-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb100-11"><a href="#cb100-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Count"</span>,</span>
+<span id="cb100-12"><a href="#cb100-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Number of Attendees by Weekday"</span></span>
+<span id="cb100-13"><a href="#cb100-13" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Semester_Year'. You can override using the
+`.groups` argument.
+`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MUSDSPROJECT_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">|&gt;</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Location), <span class="sc">!</span><span class="fu">is.na</span>(Count)) <span class="sc">|&gt;</span></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Semester_Year, Location) <span class="sc">|&gt;</span></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_count_per_location =</span> <span class="fu">mean</span>(Count)) <span class="sc">|&gt;</span></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Semester_Year, <span class="at">y =</span> avg_count_per_location, <span class="at">color =</span> Location)) <span class="sc">+</span></span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Count"</span>,</span>
+<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Number of Attendees by Weekday"</span></span>
+<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Semester_Year'. You can override using the
+`.groups` argument.
+`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+: span too small.  fewer data values than degrees of freedom.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+: pseudoinverse used at 2009.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+: neighborhood radius 1.01</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+: reciprocal condition number 0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+: There are other near singularities as well. 1.0201</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MUSDSPROJECT_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 </section>

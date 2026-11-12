@@ -452,17 +452,3 @@ temp |>
 ```
 
 
-```{r}
-
-# Install once if needed
-install.packages("corrplot")
-
-library(corrplot)
-
-temp |>
-  filter(!is.na(Count), !is.na(Event_Type)) |>
-  aov(Count ~ Event_Type, data = _) |>
-  summary()
-
-summary(temp)
-```
