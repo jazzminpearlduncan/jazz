@@ -7,7 +7,7 @@ format: html
 <iframe style="border-radius:12px"  src="https://open.spotify.com/embed/track/1LMsm1VLbyuLI95fNihyOG?utm_source=generator" width="100%" height="100" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 ::::
 
-This is a collection of a few videos I've directed, edited, and/or produced for class, extracurriculars, or just for fun! They're all pretty low-pressure projects, so don't judge any peculiar creative decisions or details too harshly! Many of these were completed for my Media Sketchbook class, so they're the equivalent of doodles in a digital sketchbook. Some have keywords that were used to guide the themes of the video.
+A collection of short films, edits, social media posts, and experiments I’ve directed, edited, and produced for class, extracurriculars, and fun. 
 
 ## Videos
 
@@ -26,6 +26,8 @@ This is a collection of a few videos I've directed, edited, and/or produced for 
 
 ```
 
+Description: This is an edit I threw together for fun while trying to visualize a world where human's have colonized space.
+
 ### Short: Frankenstime
 *Self-portrait*
 ```{=html}
@@ -40,19 +42,25 @@ This is a collection of a few videos I've directed, edited, and/or produced for 
 
 ```
 
+Description: This is an edit I threw together as an autobiographical vignette without using dialogue, or narration. The editing is aligned is musical cues.
+
+
+
 ### Hi-De-Ho: Honoring Cab Calloway, the Rotoscope, and Animation History
 *History*
 ```{=html}
 
 <div style="text-align: center;">
     <iframe width="640" height="360" 
-      src="https://youtu.be/Agc6IAtV9MU" 
+      src="https://www.youtube.com/embed/Agc6IAtV9MU" 
       frameborder="0" 
       allowfullscreen>
     </iframe>
   </div>
 
 ```
+
+Description: The original footage, traced over to create the animation, was a performance of “Minnie the Moocher” by Cab Calloway and his Cotton Club Band—an influential group that played a role in laying the conceptual groundwork for MoTown and Black Hollywood’s rise to prominence throughout the 20th century. This video (and the project it was wubmitted with) explores how animation can both immortalize and obscure cultural contributions, examining the interplay between adaptation and historical visibility. The video key moments in animation and music history, incorporating stylistic recreations, backtracking, and archival references.
 
 ### Short: Watch This Drive
 *Sound-based editing*
@@ -68,19 +76,24 @@ This is a collection of a few videos I've directed, edited, and/or produced for 
 
 ```
 
+Description:This video's editing is based purely on the structure of the sounds, images, and editing.  The structure is based on the formal rhythms of the sounds and the composition of the shots. 
+
 ### Short: Dream Girl
 *Dream sequence*
 ```{=html}
 
 <div style="text-align: center;">
     <iframe width="640" height="360" 
-      src="https://youtu.be/SqhIhw4Q1GE" 
+      src="https://www.youtube.com/embed/SqhIhw4Q1GE" 
       frameborder="0" 
       allowfullscreen>
     </iframe>
   </div>
 
 ```
+
+Description: This is an attempt at creating a dream-like sequence that mimics nightmares and uses audio cues symbolically.
+
 
 ### Short: We Outside?!?!?!
 *Outside*
@@ -95,9 +108,12 @@ This is a collection of a few videos I've directed, edited, and/or produced for 
   </div>
 ```
 
+Description: This is a quick video that tells us about how I feel about the outdoors, and young people's evolving relationship with nature as a venus vs. a vacation. 
+
+
 ### Documentary: Halloweekend in Claremont
 
-This short documentary gives a brief, intimate peek into the parties thrown throughout Halloweekend 2024 (Oct 31 - Nov 2). Examining music, design, communication pipelines, and administrative changes at Pomona since the 90’s, we designed this project to include the documentary below and a complementary ethnographic research paper. Edited with iMovie.
+Description: This short documentary gives a brief, intimate peek into the parties thrown throughout Halloweekend 2024 (Oct 31 - Nov 2). Examining music, design, communication pipelines, and administrative changes at Pomona since the 90’s, we designed this project to include the documentary below and a complementary ethnographic research paper. Edited with iMovie.
 
 [click here to watch](https://jazzminpearlduncan.github.io/jazz/multi/Halloweekend.html)
 
@@ -119,8 +135,28 @@ This short documentary gives a brief, intimate peek into the parties thrown thro
 ### Visual Album
 *Coming Soon: Apple Juice: Music Videos & Black Music Television as Sites of Creative & Extra-cultural Alchemy*
 
-This is my senior thesis project, which explores the creative and cultural possibilities of music videos, visual albums, and music television. I'm researching how music videos can function as more than promotional tools for songs—as audiovisual art forms that transform music, imagery, performance, technology, and cultural memory into something new.
+Description: This is my senior thesis project, which explores the creative and cultural possibilities of music videos, visual albums, and music television. I'm researching how music videos can function as more than promotional tools for songs—as audiovisual art forms that transform music, imagery, performance, technology, and cultural memory into something new.
 
 Alongside the written research, I’m developing a seven-minute, seven-part visual album. Each part will explore a research question through formal audiovisual decisions and the creative application of historical processes. Together, the pieces will put the project’s research into practice, using the visual album format as both a subject of study and a medium for experimentation.
 
+## Images & Social Flyers
 
+```{=html}
+<object data="multi/projects/Loop.pdf" type="application/pdf" width="100%" height="30%" style="min-height:100vh;">
+    <p>It appears you don't have a PDF plugin for this browser.
+    No biggie... you can <a href="multi/projects/socials.pdf">click here to
+    download the PDF file.</a></p>
+</object>
+```
+
+```{=html}
+
+ <div style="text-align: center;">
+    <iframe width="640" height="360" 
+      src="https://www.youtube.com/embed/IpJIjUF1cnY" 
+      frameborder="0" 
+      allowfullscreen>
+    </iframe>
+  </div>
+
+```
