@@ -9,8 +9,7 @@ execute:
 
 The Loop is a product of the collective work of students across the five Claremont Colleges. Created by Circuits, Internet, Media, and Software, The Loop has published three issues -- one per active semester -- two of which you can scroll through below.
 
-As a Co-founder, I am incredibly proud of the momentum, content, and community this magazine and organization has fostered in such a short amount of time, allowing me and my peers to grow as both artists, organizers, and multimedia fanatics. I've recently handed leadership off to underclassmen, as I'm about to graduate. See more about CIMS [here](https://claremont.campuslabs.com/engage/organization/circuits-internet-media-software).
-
+This magazine was primarily meant to be humanitarian, platforming and dignifying student works that would otherwise be forever stuck in their files; however, it has developed into a more formalized production as the organization behind it - CIMS – has grown. As a Co-founder and quasi-Editor-in-Chief, I am incredibly proud of the momentum, content, and community this magazine and organization has fostered in such a short amount of time, allowing me and my peers to grow as both artists, organizers, and multimedia fanatics. In Spring 2026, I handed leadership off to underclassmen, as I graduate in December 2026. See more about CIMS [here](https://claremont.campuslabs.com/engage/organization/circuits-internet-media-software).
 
 
 ```{=html}

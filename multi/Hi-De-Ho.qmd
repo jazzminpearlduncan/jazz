@@ -14,13 +14,7 @@ This is a collection of a few visual projects I've directed, edited, and/or prod
 ### Hi-De-Ho: Honoring Cab Calloway, the Rotoscope, and Animation History
 
 
-### Halloweekend in Claremont
-
-This short documentary gives a brief, intimate peek into the parties thrown throughout Halloweekend 2024 (Oct 31 - Nov 2). Examining music, design, communication pipelines, and administrative changes at Pomona since the 90’s, we designed this project to include the documentary below and a complementary ethnographic research paper. Edited with iMovie.
-
-[click here to watch](https://jazzminpearlduncan.github.io/jazz/multi/Halloweekend.html)
-
-### Revolution
+### Short: Revolution
 
 ```{=html}
 
@@ -34,7 +28,7 @@ This short documentary gives a brief, intimate peek into the parties thrown thro
 
 ```
 
-### Frankenstime
+### Short: Frankenstime
 
 ```{=html}
 
@@ -48,7 +42,7 @@ This short documentary gives a brief, intimate peek into the parties thrown thro
 
 ```
 
-### Watch This Drive
+### Short: Watch This Drive
 
 ```{=html}
 
@@ -62,7 +56,7 @@ This short documentary gives a brief, intimate peek into the parties thrown thro
 
 ```
 
-### Dream Girl
+### Short: Dream Girl
 
 ```{=html}
 
@@ -76,7 +70,7 @@ This short documentary gives a brief, intimate peek into the parties thrown thro
 
 ```
 
-### Outside
+### Short: Outside
 
 ```{=html}
 
@@ -89,8 +83,13 @@ This short documentary gives a brief, intimate peek into the parties thrown thro
   </div>
 ```
 
+### Documentary: Halloweekend in Claremont
 
-### bleeeppp
+This short documentary gives a brief, intimate peek into the parties thrown throughout Halloweekend 2024 (Oct 31 - Nov 2). Examining music, design, communication pipelines, and administrative changes at Pomona since the 90’s, we designed this project to include the documentary below and a complementary ethnographic research paper. Edited with iMovie.
+
+[click here to watch](https://jazzminpearlduncan.github.io/jazz/multi/Halloweekend.html)
+
+### Short: bleeeppp
 
 ```{=html}
 
@@ -105,12 +104,11 @@ This short documentary gives a brief, intimate peek into the parties thrown thro
 ```
 
 
-### Halloweekend in Claremont
+### Visual Album
+*Coming Soon: Apple Juice: Music Videos & Black Music Television as Sites of Creative & Extra-cultural Alchemy*
 
-This short documentary gives a brief, intimate peek into the parties thrown throughout Halloweekend 2024 (Oct 31 - Nov 2). Examining music, design, communication pipelines, and administrative changes at Pomona since the 90’s, we designed this project to include the documentary below and a complementary ethnographic research paper.
+This is my senior thesis project, which explores the creative and cultural possibilities of music videos, visual albums, and music television. I'm researching how music videos can function as more than promotional tools for songs—as audiovisual art forms that transform music, imagery, performance, technology, and cultural memory into something new.
 
-[click here to watch](https://jazzminpearlduncan.github.io/jazz/multi/Halloweekend.html)
+Alongside the written research, I’m developing a seven-minute, seven-part visual album. Each part will explore a research question through formal audiovisual decisions and the creative application of historical processes. Together, the pieces will put the project’s research into practice, using the visual album format as both a subject of study and a medium for experimentation.
 
-
-## Coming Soon: Apple Juice: Music Videos & Black Music Television as Sites of Creative & Extra-cultural Alchemy
 
