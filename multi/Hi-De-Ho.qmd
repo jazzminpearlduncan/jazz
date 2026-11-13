@@ -142,9 +142,9 @@ Alongside the written research, I’m developing a seven-minute, seven-part visu
 ## Images & Social Flyers
 
 ```{=html}
-<object data="multi/projects/Loop.pdf" type="application/pdf" width="100%" height="30%" style="min-height:100vh;">
+<object data="projects/socials.pdf" type="application/pdf" width="100%" height="30%" style="min-height:100vh;">
     <p>It appears you don't have a PDF plugin for this browser.
-    No biggie... you can <a href="multi/projects/socials.pdf">click here to
+    No biggie... you can <a href="projects/socials.pdf">click here to
     download the PDF file.</a></p>
 </object>
 ```
