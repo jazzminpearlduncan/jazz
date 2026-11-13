@@ -7,11 +7,9 @@ format: html
 <iframe style="border-radius:12px"  src="https://open.spotify.com/embed/track/1LMsm1VLbyuLI95fNihyOG?utm_source=generator" width="100%" height="100" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 ::::
 
-This is a collection of a few visual projects I've directed, edited, and/or produced for class, extracurriculars, or just for fun! They're all pretty low-pressure projects, so don't judge any peculiar creative decisions or details too harshly! Many of these were completed for my Media Sketchbook class, so they're the equivalent of doodles in a digital sketchbook.
+This is a collection of a few videos I've directed, edited, and/or produced for class, extracurriculars, or just for fun! They're all pretty low-pressure projects, so don't judge any peculiar creative decisions or details too harshly! Many of these were completed for my Media Sketchbook class, so they're the equivalent of doodles in a digital sketchbook. Some have keywords that were used to guide the themes of the video.
 
 ## Videos
-
-### Hi-De-Ho: Honoring Cab Calloway, the Rotoscope, and Animation History
 
 
 ### Short: Revolution
@@ -29,7 +27,7 @@ This is a collection of a few visual projects I've directed, edited, and/or prod
 ```
 
 ### Short: Frankenstime
-
+*Self-portrait*
 ```{=html}
 
 <div style="text-align: center;">
@@ -42,8 +40,22 @@ This is a collection of a few visual projects I've directed, edited, and/or prod
 
 ```
 
-### Short: Watch This Drive
+### Hi-De-Ho: Honoring Cab Calloway, the Rotoscope, and Animation History
+*History*
+```{=html}
 
+<div style="text-align: center;">
+    <iframe width="640" height="360" 
+      src="https://youtu.be/Agc6IAtV9MU" 
+      frameborder="0" 
+      allowfullscreen>
+    </iframe>
+  </div>
+
+```
+
+### Short: Watch This Drive
+*Sound-based editing*
 ```{=html}
 
  <div style="text-align: center;">
@@ -57,7 +69,7 @@ This is a collection of a few visual projects I've directed, edited, and/or prod
 ```
 
 ### Short: Dream Girl
-
+*Dream sequence*
 ```{=html}
 
 <div style="text-align: center;">
@@ -70,8 +82,8 @@ This is a collection of a few visual projects I've directed, edited, and/or prod
 
 ```
 
-### Short: Outside
-
+### Short: We Outside?!?!?!
+*Outside*
 ```{=html}
 
  <div style="text-align: center;">
@@ -90,7 +102,7 @@ This short documentary gives a brief, intimate peek into the parties thrown thro
 [click here to watch](https://jazzminpearlduncan.github.io/jazz/multi/Halloweekend.html)
 
 ### Short: bleeeppp
-
+*One shot*
 ```{=html}
 
  <div style="text-align: center;">
